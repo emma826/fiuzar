@@ -13,9 +13,7 @@ export default function Hero() {
                                 Repurpose Your Content With Fiuzar
                             </h1>
                             <p className="mx-auto max-w-screen-md text-muted-foreground lg:text-xl">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig
-                                doloremque mollitia fugiat omnis! Porro facilis quo animi
-                                consequatur. Explicabo.
+                                Transform your existing content into platform-specific formats with our AI-powered tool.
                             </p>
                             <div className="mt-12 flex w-full flex-col justify-center gap-2 sm:flex-row">
                                 <Button className={`py-7`}>
@@ -38,7 +36,7 @@ export default function Hero() {
                     <Image
                         src="/img/download.jpeg"
                         alt="placeholder"
-                        className="mx-auto mt-24 max-h-[700px] w-full max-w-[750px] rounded-t-lg object-cover shadow-lg"
+                        className="mx-auto mt-24 max-h-[700px] w-full max-w-[900px] rounded-t-lg object-cover shadow-lg"
                         width={400}
                         height={400}
                     />

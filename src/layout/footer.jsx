@@ -48,8 +48,7 @@ export default function Footer({ logo = { url: "/", src: "/img/logo-2.png", alt:
                                 <h2 className="text-xl font-semibold">{logo.title}</h2>
                             </div>
                             <p className="text-sm text-muted-foreground">
-                                A collection of 100+ responsive HTML templates for your startup
-                                business or side project.
+                                Transform your existing content with our AI-powered tool.
                             </p>
                             <ul className="flex items-center space-x-6 text-muted-foreground">
                                 <li className="font-medium hover:text-primary">
