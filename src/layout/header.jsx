@@ -64,9 +64,9 @@ const features = [
 
 export default function Header() {
     return (
-        <section className="py-3 px-3 sticky top-0 bg-white z-50">
-            <div className="container md:mx-auto">
-                <nav className="flex items-center justify-between">
+        <section className="px-3 sticky top-0 bg-white z-50">
+            <div className="container md:mx-auto py-3">
+                <nav className="flex items-center justify-between pt-5 lg:pt-0">
                     <Link
                         href="/"
                         className="flex items-center gap-2"
