@@ -188,6 +188,20 @@
 }
 
 @layer base {
+
+  ::-webkit-scrollbar {
+    width: 6px; /* Thin scrollbar */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(136, 132, 132); /* Color of the thumb */
+    border-radius: 10px; /* Rounded thumb */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: rgba(20, 20, 20, 0.966); /* Color of the track */
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
