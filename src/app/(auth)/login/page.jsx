@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 export default async function LoginPage() {
 
-    try {
+    // try {
         const session = await auth();
 
         if (!session) {
@@ -18,9 +18,9 @@ export default async function LoginPage() {
         else {
             redirect("/app")
         }
-    } catch (error) {
-        return <LoginForm />
-    }
+    // } catch (error) {
+    //     return <LoginForm />
+    // }
 
 
 }
