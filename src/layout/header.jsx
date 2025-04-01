@@ -115,14 +115,14 @@ export default function Header() {
                                     Home
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
-                            <NavigationMenuItem>
+                            {/* <NavigationMenuItem>
                                 <NavigationMenuLink
                                     href="/pricing"
                                     className={navigationMenuTriggerStyle()}
                                 >
                                     Pricing
                                 </NavigationMenuLink>
-                            </NavigationMenuItem>
+                            </NavigationMenuItem> */}
                             <NavigationMenuItem>
                                 <NavigationMenuLink
                                     href="/blog"
