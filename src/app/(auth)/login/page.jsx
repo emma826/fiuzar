@@ -5,16 +5,22 @@ import { redirect } from "next/navigation";
 
 export default async function LoginPage() {
 
-    const session = await auth();
+    try {
+        const session = await auth();
 
-    if (!session) {
+        if (!session) {
+            return <LoginForm />
+        }
+
+        if (session.user.email == "mail@fiuzar.com") {
+            redirect("/admin")
+        }
+        else {
+            redirect("/app")
+        }
+    } catch (error) {
         return <LoginForm />
     }
 
-    if (session?.user.email == "mail@fiuzar.com") {
-        redirect("/admin")
-    }
-    else {
-        redirect("/app")
-    }
+
 }
