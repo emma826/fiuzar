@@ -8,6 +8,8 @@ export default async function LoginPage() {
     // try {
         const session = await auth();
 
+        console.log(session)
+
         if (!session) {
             return <LoginForm />
         }
