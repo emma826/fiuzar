@@ -4,12 +4,12 @@ import Image from "next/image"
 
 export default function Hero() {
     return (
-        <section className="py-24">
+        <section className="py-10">
             <div className="overflow-hidden border-b border-muted">
                 <div className="container mx-auto">
-                    <div className="mx-auto flex max-w-5xl flex-col items-center">
+                    <div className="mx-auto flex max-w-5xl flex-col items-center px-3">
                         <div className="z-10 items-center text-center">
-                            <h1 className="mb-8 text-3xl font-semibold text-pretty lg:text-6xl">
+                            <h1 className="mb-8 text-3xl font-bold text-pretty lg:text-6xl">
                                 Repurpose Your Content With Fiuzar
                             </h1>
                             <p className="mx-auto max-w-screen-md text-muted-foreground lg:text-xl">
@@ -36,7 +36,7 @@ export default function Hero() {
                     <Image
                         src="/img/download.jpeg"
                         alt="placeholder"
-                        className="mx-auto mt-24 max-h-[700px] w-full max-w-[900px] rounded-t-lg object-cover shadow-lg"
+                        className="mx-auto px-3 mt-10 max-h-[700px] w-full max-w-[900px] rounded-t-lg object-cover shadow-lg"
                         width={400}
                         height={400}
                     />

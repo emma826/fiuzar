@@ -23,7 +23,7 @@ export default function Pricing({
             name: "Basic",
             description: "For individuals and small teams",
             monthlyPrice: "$10",
-            yearlyPrice: "$8",
+            yearlyPrice: "$100",
             features: [
                 { text: "Automated Text Extraction & Variation (Limited character count/variations)" },
                 { text: "Video to Social Clip Generation (Limited video length/clips)" },
@@ -42,7 +42,7 @@ export default function Pricing({
             name: "Pro",
             description: "For growing businesses",
             monthlyPrice: "$30",
-            yearlyPrice: "$24",
+            yearlyPrice: "$300",
             features: [
                 { text: "Automated Text Extraction & Variation (Increased character count/unlimited variations)" },
                 { text: "Video to Social Clip Generation (Increased video length/unlimited clips)" },
@@ -93,13 +93,13 @@ export default function Pricing({
                                     <span className="text-4xl font-bold">
                                         {isYearly ? plan.yearlyPrice : plan.monthlyPrice}
                                     </span>
-                                    <p className="text-muted-foreground">
+                                    {/* <p className="text-muted-foreground">
                                         Billed{" "}
                                         {isYearly
-                                            ? `$${Number(plan.yearlyPrice.slice(1)) * 12}`
-                                            : `$${Number(plan.monthlyPrice.slice(1)) * 12}`}{" "}
+                                            ? `$${Number(plan.yearlyPrice.slice(1)) * 10}`
+                                            : `$${Number(plan.monthlyPrice.slice(1)) * 10}`}{" "}
                                         annually
-                                    </p>
+                                    </p> */}
                                 </CardHeader>
                                 <CardContent>
                                     <Separator className="mb-6" />
