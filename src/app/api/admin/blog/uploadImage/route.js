@@ -2,7 +2,28 @@ import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import path from "path";
-import { pool } from "@/lib/db";
+import { query } from "@/lib/db";
+
+const UPLOAD_DIR = path.join(process.cwd(), "/public/uploads/media/image");
+
+async function saveImageToDisk(image, uniqueImageName) {
+    if (!fs.existsSync(UPLOAD_DIR)) {
+        fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+    }
+
+    const imagePath = path.join(UPLOAD_DIR, uniqueImageName);
+    const buffer = Buffer.from(await image.arrayBuffer());
+    fs.writeFileSync(imagePath, buffer);
+
+    return imagePath;
+}
+
+async function saveImageMetadataToDB(uniqueImageName) {
+    const queryText = "INSERT INTO media (media_file, media_type, date) VALUES ($1, $2, $3)";
+    const values = [uniqueImageName, "image", new Date().getTime()];
+    const [result] = await query(queryText, values);
+    return result;
+}
 
 export async function POST(request) {
     try {
@@ -10,23 +31,14 @@ export async function POST(request) {
         const image = formData.get("image");
 
         if (!image || !image.name) {
-            return NextResponse.json({ success: false, message: "No image provided" });
+            return NextResponse.json({ success: false, message: "No image provided" }, { status: 400 });
         }
 
         const imageExtension = path.extname(image.name);
         const uniqueImageName = `${uuidv4()}${imageExtension}`;
 
-        const uploadDir = path.join(process.cwd(), "/public/uploads/media/image");
-        const imagePath = path.join(uploadDir, uniqueImageName);
-
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
-        }
-
-        const buffer = Buffer.from(await image.arrayBuffer());
-        fs.writeFileSync(imagePath, buffer);
-
-        const [result] = await pool.query("INSERT INTO media (media_file, media_type, date) VALUES (?, ?, ?)", [uniqueImageName, "image", new Date().getTime()])
+        await saveImageToDisk(image, uniqueImageName);
+        await saveImageMetadataToDB(uniqueImageName);
 
         const imageUrl = `/uploads/media/image/${uniqueImageName}`;
         return NextResponse.json({

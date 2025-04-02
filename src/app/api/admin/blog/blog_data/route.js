@@ -13,7 +13,7 @@ export async function GET(request) {
     }
 
     try {
-        const blogs = await query("SELECT * FROM blog WHERE id = $1", [blogId]);
+        const blogs = await query("SELECT * FROM blogs WHERE id = $1", [blogId]);
 
         if (blogs.length === 0) {
             return NextResponse.json(
