@@ -22,7 +22,9 @@ export async function GET(request) {
             );
         }
 
-        return NextResponse.json({ success: true, blogs });
+        
+
+        return NextResponse.json({ success: true, blogs: blogs[0] });
     } catch (error) {
         console.error("Database query error:", error);
         return NextResponse.json(
