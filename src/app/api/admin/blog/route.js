@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
-import { v4 as uuidv4 } from "uuid";
-import fs from "fs";
-import path from "path";
+// import { v4 as uuidv4 } from "uuid";
+// import path from "path";
+import fetch from "node-fetch";
 
 export async function GET() {
     try {
@@ -25,13 +25,29 @@ export async function POST(request) {
     }
 
     const url = title.toLowerCase().replace(/\s+/g, "-");
-    const imageExtension = path.extname(image.name);
-    const uniqueImageName = `${uuidv4()}${imageExtension}`;
-    const imagePath = path.join(process.cwd(), "/public/uploads/featured_img", uniqueImageName);
 
     try {
-        const buffer = Buffer.from(await image.arrayBuffer());
-        fs.writeFileSync(imagePath, buffer);
+        // Send the file to the PHP server
+        const phpServerUrl = "https://your-php-server.com/upload.php";
+        const imageBuffer = Buffer.from(await image.arrayBuffer());
+        const phpFormData = new FormData();
+        phpFormData.append("file", new Blob([imageBuffer]), image.name);
+
+        const phpResponse = await fetch(phpServerUrl, {
+            method: "POST",
+            body: phpFormData,
+        });
+
+        if (!phpResponse.ok) {
+            throw new Error("Failed to upload image to PHP server");
+        }
+
+        const phpResponseData = await phpResponse.json();
+        if (!phpResponseData.success) {
+            throw new Error(phpResponseData.message);
+        }
+
+        const uniqueImageName = phpResponseData.fileName;
 
         const queryText = "INSERT INTO blogs (title, image, url) VALUES ($1, $2, $3) RETURNING id";
         const values = [title, uniqueImageName, url];
@@ -41,6 +57,6 @@ export async function POST(request) {
         return NextResponse.json({ success: true, message: "Submitted successfully", blogId }, { status: 200 });
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ success: false, message: "Database error" }, { status: 500 });
+        return NextResponse.json({ success: false, message: "Error processing request" }, { status: 500 });
     }
 }

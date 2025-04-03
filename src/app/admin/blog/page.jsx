@@ -46,10 +46,6 @@ export default function BlogPage() {
 		get_blogs()
 	}, [newBlogId])
 
-	useEffect(() => {
-		console.log(blogs)
-	}, [blogs])
-
 	const handleImageChange = (e) => {
 		const file = e.target.files[0];
 		if (file) {
