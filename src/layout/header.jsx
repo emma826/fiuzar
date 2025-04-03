@@ -64,7 +64,7 @@ const features = [
 
 export default function Header() {
     return (
-        <section className="px-3 sticky top-0 bg-white z-50">
+        <section className="px-3 sticky top-0 bg-gray-50 z-50">
             <div className="container md:mx-auto py-3">
                 <nav className="flex items-center justify-between pt-5 lg:pt-0">
                     <Link
@@ -78,7 +78,7 @@ export default function Header() {
                             width={400}
                             height={400}
                         />
-                        <span className="text-2xl font-bold tracking-tighter">
+                        <span className="text-2xl font-bold tracking-tighter text-green-800">
                             Fiuzar
                         </span>
                     </Link>
@@ -142,7 +142,7 @@ export default function Header() {
                         </NavigationMenuList>
                     </NavigationMenu>
                     <div className="hidden items-center gap-4 lg:flex">
-                        <Link href={`login`} className={`rounded-lg py-3 px-6 bg-green-800 text-background`}>Start for free</Link>
+                        <Link href={`login`} className={`rounded-lg py-3 px-6 bg-green-800 font-semibold hover:bg-green-700 text-background`}>Start for free</Link>
                     </div>
                     <Sheet>
                         <SheetTrigger asChild className="lg:hidden">

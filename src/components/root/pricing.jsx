@@ -62,14 +62,14 @@ export default function Pricing({
     const [isYearly, setIsYearly] = useState(false);
 
     return (
-        <section className="py-32">
+        <section className="py-16">
             <div className="container mx-auto px-2 lg:px-0">
                 <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 text-center">
-                    <h2 className="text-4xl font-bold text-pretty lg:text-6xl">
+                    <h2 className="text-4xl font-bold text-green-800 text-pretty lg:text-6xl">
                         {heading}
                     </h2>
                     <p className="text-muted-foreground lg:text-xl">{description}</p>
-                    <div className="flex items-center gap-3 text-lg">
+                    <div className="flex items-center text-black gap-3 text-lg">
                         Monthly
                         <Switch
                             checked={isYearly}
@@ -84,7 +84,7 @@ export default function Pricing({
                                 className="flex w-96 flex-col justify-between text-left"
                             >
                                 <CardHeader>
-                                    <CardTitle>
+                                    <CardTitle className={`text-green-800 text-lg font-bold`}>
                                         <p>{plan.name}</p>
                                     </CardTitle>
                                     <p className="text-sm text-muted-foreground">
@@ -118,7 +118,7 @@ export default function Pricing({
                                     </ul>
                                 </CardContent>
                                 <CardFooter className="mt-auto">
-                                    <Button asChild className="w-full">
+                                    <Button asChild className="w-full text-white bg-green-800 hover:bg-green-700">
                                         <a href={plan.button.url} target="_blank">
                                             {plan.button.text}
                                             <ArrowRight className="ml-2 size-4" />

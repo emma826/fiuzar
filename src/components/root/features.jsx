@@ -56,32 +56,27 @@ export default function Features({
     return (
         <section className="py-16 px-3 lg:px-0">
             <div className="container max-w-7xl mx-auto">
-                <h2 className="text-3xl font-medium lg:text-4xl text-center">{heading}</h2>
-                <div className="mt-20 grid gap-9 lg:grid-cols-2">
+                <h2 className="text-3xl font-bold lg:text-4xl text-center">{heading}</h2>
+                <div className="mt-20 grid gap-9 md:grid-cols-2 lg:grid-cols-3">
+
                     {features.map((feature) => (
-                        <div
-                            key={feature.id}
-                            className="flex flex-col justify-between rounded-lg bg-accent"
-                        >
-                            <div className="flex justify-between gap-10 border-b">
-                                <div className="flex flex-col justify-between gap-14 py-6 pl-4 md:py-10 md:pl-8 lg:justify-normal">
-                                    {/* <p className="text-xs text-muted-foreground">
-                                        {feature.subtitle}
-                                    </p> */}
-                                    <h3 className="text-2xl md:text-4xl">{feature.title}</h3>
-                                </div>
-                                <div className="md:1/3 w-2/5 shrink-0 items-center rounded-r-lg border-l">
+                        <div key={feature.id} className="w-full">
+                            <div className="wow fadeInUp" data-wow-delay=".15s">
+                                <div className="mb-10 rounded-md bg-white bg-opacity-10 text-green-700">
                                     <Image
                                         src={feature.image}
                                         alt={feature.title}
-                                        className="max-w-16 w-full object-cover"
+                                        className="max-w-16 w-full block mx-auto object-cover"
                                         width={300}
                                         height={300}
                                     />
                                 </div>
-                            </div>
-                            <div className="p-4 text-muted-foreground md:p-8">
-                                {feature.description}
+                                <h3 className="mb-5 text-xl font-semibold text-green-800 sm:text-2xl lg:text-xl xl:text-2xl">
+                                    {feature.title}
+                                </h3>
+                                <p className="pr-[10px] text-base font-medium leading-relaxed text-gray-700">
+                                    {feature.description}
+                                </p>
                             </div>
                         </div>
                     ))}

@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link"
 
 import Image from "next/image"
 
@@ -9,16 +10,16 @@ export default function Hero() {
                 <div className="container mx-auto">
                     <div className="mx-auto flex max-w-5xl flex-col items-center px-3">
                         <div className="z-10 items-center text-center">
-                            <h1 className="mb-8 text-3xl font-bold text-pretty lg:text-6xl">
+                            <h1 className="mb-8 text-3xl font-extrabold text-green-800 text-pretty lg:text-6xl">
                                 Repurpose Your Content With Fiuzar
                             </h1>
-                            <p className="mx-auto max-w-screen-md text-muted-foreground lg:text-xl">
+                            <p className="mx-auto max-w-screen-md text-black font-bold lg:text-xl">
                                 Transform your existing content into platform-specific formats with our AI-powered tool.
                             </p>
-                            <div className="mt-12 flex w-full flex-col justify-center gap-2 sm:flex-row">
-                                <Button className={`py-7`}>
-                                    Get started now
-                                </Button>
+                            <div className="mt-7 flex w-full flex-col justify-center gap-2 sm:flex-row">
+                                <Link href={`signup`} className={`rounded-lg py-4 px-6 bg-green-800 font-semibold hover:bg-green-700 text-background flex gap-2`}>
+                                    Get Started <ArrowRight />
+                                </Link>
                             </div>
                         </div>
                     </div>

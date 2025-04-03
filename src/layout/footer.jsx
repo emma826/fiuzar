@@ -1,40 +1,43 @@
 const sections = [
     {
-        title: "Product",
+        title: "Features",
         links: [
-            { name: "Overview", href: "#" },
-            { name: "Pricing", href: "#" },
-            { name: "Marketplace", href: "#" },
-            { name: "Features", href: "#" },
+            { name: "Automated Text Extraction & Variation", href: "#" },
+            { name: "Instant Video Clip Creation", href: "#" },
+            { name: "Automated Image Optimization", href: "#" },
+            { name: "Audio Transcription and Summarization", href: "#" },
+            { name: "Scheduled Posting", href: "#" },
+            { name: "Content Performance Analytics", href: "#" },
         ],
     },
     {
-        title: "Company",
+        title: "Quick Links",
         links: [
-            { name: "About", href: "#" },
-            { name: "Team", href: "#" },
-            { name: "Blog", href: "#" },
-            { name: "Careers", href: "#" },
+            { name: "Home", href: "/" },
+            { name: "Blog", href: "/blog" },
+            { name: "About Us", href: "/about" },
+            // { name: "Careers", href: "#" },
         ],
     },
-    {
-        title: "Resources",
-        links: [
-            { name: "Help", href: "#" },
-            { name: "Sales", href: "#" },
-            { name: "Advertise", href: "#" },
-            { name: "Privacy", href: "#" },
-        ],
-    },
+    // {
+    //     title: "Resources",
+    //     links: [
+    //         { name: "Help", href: "#" },
+    //         { name: "Sales", href: "#" },
+    //         { name: "Advertise", href: "#" },
+    //         { name: "Privacy", href: "#" },
+    //     ],
+    // },
 ];
 
 export default function Footer({ logo = { url: "/", src: "/img/logo-2.png", alt: "fiuzar logo", title: "Fiuzar", } }) {
     return (
-        <section className="py-32">
+        <section className="pt-16 pb-10">
             <div className="container mx-auto">
                 <footer>
                     <div className="flex flex-col items-start justify-between gap-10 text-center lg:flex-row lg:text-left">
-                        <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
+
+                        <div className="flex w-full flex-auto shrink flex-col items-center justify-between gap-6 lg:items-start">
                             {/* Logo */}
                             <div className="flex items-center gap-2 lg:justify-start">
                                 <a href="https://shadcnblocks.com">
@@ -68,7 +71,8 @@ export default function Footer({ logo = { url: "/", src: "/img/logo-2.png", alt:
                                 </li>
                             </ul>
                         </div>
-                        <div className="grid grid-cols-3 gap-6 lg:gap-20">
+                        
+                        <div className="grid grid-cols-2 gap-2 lg:gap-20 w-auto">
                             {sections.map((section, sectionIdx) => (
                                 <div key={sectionIdx}>
                                     <h3 className="mb-6 font-bold">{section.title}</h3>
@@ -86,7 +90,8 @@ export default function Footer({ logo = { url: "/", src: "/img/logo-2.png", alt:
                             ))}
                         </div>
                     </div>
-                    <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
+                    
+                    <div className="mt-10 flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
                         <p>© 2025 fiuzar.com. All rights reserved.</p>
                         <ul className="flex justify-center gap-4 lg:justify-start">
                             <li className="hover:text-primary">

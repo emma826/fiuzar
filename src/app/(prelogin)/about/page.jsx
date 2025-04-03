@@ -8,7 +8,7 @@ export default function AboutPage() {
             <section className="py-16">
                 <div className="container flex flex-col gap-28 mx-auto">
                     <div className="flex flex-col gap-7">
-                        <h1 className="text-3xl font-semibold max-w-3xl text-center mx-auto lg:text-6xl">
+                        <h1 className="text-3xl font-extrabold text-green-800 max-w-3xl text-center mx-auto lg:text-6xl">
                             Simplifying Content Repurposing for Everyone
                         </h1>
                         <p className="max-w-xl mx-auto text-center text-lg">
@@ -26,13 +26,11 @@ export default function AboutPage() {
                         <div className="flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10">
                             <p className="text-sm text-muted-foreground">OUR MISSION</p>
                             <p className="text-lg font-medium">
-                                We believe that building software should be insanely easy. That
-                                everyone should have the freedom to create the tools they need,
-                                without any developers, designers or drama.
+                                We're on a mission to empower 100,000 marketers to reclaim their time and amplify their impact. We're building Fiuzar, a platform designed to streamline your content repurposing and eventually, your entire marketing automation workflow. We believe that efficient marketing shouldn't be a luxury, it should be the standard.
                             </p>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-6 md:gap-20">
+                    {/* <div className="flex flex-col gap-6 md:gap-20">
                         <div className="max-w-xl">
                             <h2 className="mb-2.5 text-3xl font-semibold md:text-5xl">
                                 We make creating software ridiculously easy
@@ -82,27 +80,21 @@ export default function AboutPage() {
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="grid gap-10 md:grid-cols-2">
                         <div>
-                            <p className="mb-10 text-sm font-medium text-muted-foreground">
-                                JOIN OUR TEAM
-                            </p>
                             <h2 className="mb-2.5 text-3xl font-semibold md:text-5xl">
-                                We&apos;re changing how software is made
+                                What Drives Us: Empowerment, Boldness, and Openness in Marketing
                             </h2>
                         </div>
                         <div>
-                            <img
-                                src="https://shadcnblocks.com/images/block/placeholder-1.svg"
-                                alt="placeholder"
-                                className="mb-6 max-h-36 w-full rounded-xl object-cover"
-                            />
-                            <p className="text-muted-foreground">
-                                And we&apos;re looking for the right people to help us do it. If
-                                you&apos;re passionate about making change in the world, this
-                                might be the place for you
-                            </p>
+                            <p className="font-bold text-lg mb-2">At Fiuzar, we're guided by these core values:</p>
+
+                            <p>We believe in transparency, collaboration, and open communication in the marketing world.</p>
+                            <p>We're driven by bold ambitions and a commitment to making a real impact on marketing efficiency.</p>
+                            <p>We believe in giving you the tools and autonomy to succeed in your marketing efforts.</p>
+
+                            <p className="mt-2">These values are woven into the fabric of our product and our company culture, driving us to build the best possible marketing automation platform.</p>
                         </div>
                     </div>
                 </div>

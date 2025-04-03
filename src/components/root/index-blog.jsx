@@ -1,6 +1,5 @@
 import { ArrowRight } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -9,8 +8,9 @@ import {
     CardHeader,
 } from "@/components/ui/card";
 
+import Link from "next/link";
+
 export default function IndexBlog({
-    tagline = "Latest Updates",
     heading = "Blog Posts",
     description = "Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights.",
     buttonText = "View all articles",
@@ -52,18 +52,15 @@ export default function IndexBlog({
     ],
 }) {
     return (
-        <section className="py-32">
+        <section className="py-16">
             <div className="container mx-auto flex flex-col items-center gap-16 lg:px-16">
                 <div className="text-center">
-                    <Badge variant="secondary" className="mb-6">
-                        {tagline}
-                    </Badge>
-                    <h2 className="mb-3 text-3xl font-semibold text-pretty md:mb-4 md:text-4xl lg:mb-6 lg:max-w-3xl lg:text-5xl">
+                    <h2 className="mb-3 text-3xl text-green-800 font-extrabold text-pretty md:mb-4 md:text-4xl lg:mb-6 lg:max-w-3xl lg:text-5xl">
                         {heading}
                     </h2>
-                    <p className="mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg">
+                    {/* <p className="mb-8 text-muted-foreground md:text-base lg:max-w-2xl lg:text-lg">
                         {description}
-                    </p>
+                    </p> */}
                     <Button variant="link" className="w-full sm:w-auto" asChild>
                         <a href={buttonUrl} target="_blank">
                             {buttonText}
@@ -78,7 +75,7 @@ export default function IndexBlog({
                             className="grid grid-rows-[auto_auto_1fr_auto] pt-0"
                         >
                             <div className="aspect-[16/9] w-full">
-                                <a
+                                <Link
                                     href={post.url}
                                     target="_blank"
                                     className="transition-opacity duration-200 fade-in hover:opacity-70"
@@ -88,7 +85,7 @@ export default function IndexBlog({
                                         alt={post.title}
                                         className="h-full w-full object-cover object-center"
                                     />
-                                </a>
+                                </Link>
                             </div>
                             <CardHeader>
                                 <h3 className="text-lg font-semibold hover:underline md:text-xl">
@@ -101,14 +98,13 @@ export default function IndexBlog({
                                 <p className="text-muted-foreground">{post.summary}</p>
                             </CardContent>
                             <CardFooter>
-                                <a
+                                <Link
                                     href={post.url}
-                                    target="_blank"
                                     className="flex items-center text-foreground hover:underline"
                                 >
                                     Read more
                                     <ArrowRight className="ml-2 size-4" />
-                                </a>
+                                </Link>
                             </CardFooter>
                         </Card>
                     ))}
