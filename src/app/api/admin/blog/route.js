@@ -28,12 +28,12 @@ export async function POST(request) {
 
     try {
         // Send the file to the PHP server
-        const phpServerUrl = "https://your-php-server.com/upload.php";
         const imageBuffer = Buffer.from(await image.arrayBuffer());
         const phpFormData = new FormData();
         phpFormData.append("file", new Blob([imageBuffer]), image.name);
+        phpFormData.append("category", "featured_img")
 
-        const phpResponse = await fetch(phpServerUrl, {
+        const phpResponse = await fetch(process.env.STORAGE_SERVER, {
             method: "POST",
             body: phpFormData,
         });
