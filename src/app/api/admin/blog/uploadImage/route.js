@@ -1,15 +1,6 @@
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-import fs from "fs";
-import path from "path";
-import { query } from "@/lib/db";
-
-async function saveImageMetadataToDB(uniqueImageName) {
-    const queryText = "INSERT INTO media (media_file, media_type, date) VALUES ($1, $2, $3)";
-    const values = [uniqueImageName, "image", new Date().getTime()];
-    const [result] = await query(queryText, values);
-    return result;
-}
+import https from "https";
 
 export async function POST(request) {
     try {
@@ -20,19 +11,30 @@ export async function POST(request) {
             return NextResponse.json({ success: false, message: "No image provided" }, { status: 400 });
         }
 
-        // Send the file to the PHP server
+        // Create a buffer from the image
         const imageBuffer = Buffer.from(await image.arrayBuffer());
+
+        // Prepare the FormData to forward to the PHP server
         const phpFormData = new FormData();
-        phpFormData.append("file", new Blob([imageBuffer]), image.name);
+        phpFormData.append("file", new File([imageBuffer], image.name));
         phpFormData.append("category", "media");
 
-        const phpResponse = await fetch(process.env.STORAGE_SERVER, {
+        const agent = new https.Agent({
+            rejectUnauthorized: false,
+        });
+
+        const phpResponse = await fetch(`${process.env.STORAGE_SERVER}`, {
             method: "POST",
             body: phpFormData,
+            headers: {
+                "Accept": "application/json"
+            },
+            agent,
         });
 
         if (!phpResponse.ok) {
-            throw new Error("Failed to upload image to PHP server");
+            const errorText = await phpResponse.text();
+            throw new Error(`Failed to upload image to PHP server: ${errorText}`);
         }
 
         const phpResponseData = await phpResponse.json();
@@ -40,14 +42,13 @@ export async function POST(request) {
             throw new Error(phpResponseData.message);
         }
 
+        // Assuming PHP returns a unique image name for storage
         const uniqueImageName = phpResponseData.fileName;
 
+        // Construct the image URL
+        const imageUrl = `${process.env.STORAGE_SERVER}/media/${uniqueImageName}`;
         
-        const queryText = "INSERT INTO media (media_file, media_type, date) VALUES ($1, $2, $3)";
-        const values = [uniqueImageName, "image", new Date().getTime()];
-        await query(queryText, values);
-
-        const imageUrl = `/uploads/media/image/${uniqueImageName}`;
+        // Respond with success and image URL
         return NextResponse.json({
             success: true,
             message: "File uploaded successfully",
@@ -55,7 +56,10 @@ export async function POST(request) {
         }, { status: 200 });
 
     } catch (error) {
-        console.error("Error uploading file:", error);
-        return NextResponse.json({ success: false, message: "An error occurred while uploading the file" }, { status: 500 });
+        console.error("Error uploading file:", error.message || error);
+        return NextResponse.json(
+            { success: false, message: error.message || "An error occurred while uploading the file" },
+            { status: 500 }
+        );
     }
 }

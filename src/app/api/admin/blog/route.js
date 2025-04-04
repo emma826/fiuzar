@@ -16,6 +16,12 @@ export async function GET() {
 }
 
 export async function POST(request) {
+    const contentType = request.headers.get("Content-Type") || "";
+    
+    if (!contentType.includes("multipart/form-data")) {
+        return NextResponse.json({ success: false, message: "Invalid Content-Type. Expected multipart/form-data." }, { status: 400 });
+    }
+
     const formData = await request.formData();
     const title = formData.get("title").trim();
     const image = formData.get("image");

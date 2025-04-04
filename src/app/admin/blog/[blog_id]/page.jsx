@@ -39,7 +39,7 @@ export default function Blog_idPage() {
 	const [category, setCategory] = useState("");
 
 	const fetchBlogData = async (id) => {
-		
+
 		try {
 			const response = await fetch(`/api/admin/blog/blog_data?id=${id}`);
 			if (!response.ok) {
@@ -153,47 +153,36 @@ export default function Blog_idPage() {
 																																	formData.append("image", file);
 
 																																	try {
-
 																																		const response = await fetch("/api/admin/blog/uploadImage", {
 																																			method: "POST",
 																																			body: formData,
-																																		})
+																																		});
+
 																																		const data = await response.json();
-	
+
 																																		if (data.success) {
 																																			return {
 																																				success: 1,
 																																				file: {
-																																					url: data.url
-	
-																																				}
-																																			}
-																																		}
-																																		else {
+																																					url: data.url,
+																																				},
+																																			};
+																																		} else {
 																																			return {
 																																				success: 0,
-																																				error: "file upload failed"
-																																			}
+																																				error: "File upload failed",
+																																			};
 																																		}
-																																		
 																																	} catch (error) {
 																																		return {
 																																			success: 0,
-																																			error: 'An error occurred during the upload',
-																																		  };
+																																			error: "An error occurred during the upload",
+																																		};
 																																	}
-
-																																	
 																																}
 
-																															}
 
-																															// endpoints: {
-																															// 	byFile:
-																															// 		"/api/admin/blog/uploadImage", // Your backend file uploader endpoint
-																															// 	byUrl:
-																															// 		"/api/get_image", // Your endpoint that provides uploading by URL
-																															// },
+																															}
 																														},
 																													},
 																													embed: {
