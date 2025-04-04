@@ -192,7 +192,7 @@ export default function BlogPage() {
 								<TableCell>{blog.author || ""}</TableCell>
 								<TableCell>{blog.category || ""}</TableCell>
 								<TableCell>{blog.status || ""}</TableCell>
-								<TableCell>{blog.modifiedDate || ""}</TableCell>
+								<TableCell>{new Date(blog.created_at).toDateString || ""}</TableCell>
 							</TableRow>
 						))}
 						{/* <TableRow>

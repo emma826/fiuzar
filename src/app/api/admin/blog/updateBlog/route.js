@@ -6,8 +6,8 @@ export async function POST(request) {
     const updatedDate = new Date(date).getTime();
 
     try {
-        const queryText = `UPDATE blogs SET title = $1, meta_description = $2, body = $3, date = $4, author = $5, category = $6, status = $7 WHERE id = $8`;
-        const values = [title, metaDescription, JSON.stringify(body), updatedDate, author, category, "published", parseInt(blogId)];
+        const queryText = `UPDATE blogs SET title = $1, meta_description = $2, body = $3, author = $4, category = $5, status = $6 WHERE id = $7`;
+        const values = [title, metaDescription, JSON.stringify(body), author, category, "published", parseInt(blogId)];
 
         await query(queryText, values);
 

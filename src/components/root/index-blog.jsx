@@ -9,48 +9,30 @@ import {
 } from "@/components/ui/card";
 
 import Link from "next/link";
+// import Image from "next/image";
 
-export default function IndexBlog({
+import { IndexBlogFunction } from "../server-actions/blog-functions";
+
+export default async function IndexBlog({
     heading = "Blog Posts",
-    description = "Discover the latest trends, tips, and best practices in modern web development. From UI components to design systems, stay updated with our expert insights.",
     buttonText = "View all articles",
-    buttonUrl = "https://shadcnblocks.com",
-    posts = [
-        {
-            id: "post-1",
-            title: "Getting Started with shadcn/ui Components",
-            summary:
-                "Learn how to quickly integrate and customize shadcn/ui components in your Next.js projects. We'll cover installation, theming, and best practices for building modern interfaces.",
-            label: "Tutorial",
-            author: "Sarah Chen",
-            published: "1 Jan 2024",
-            url: "https://shadcnblocks.com",
-            image: "https://shadcnblocks.com/images/block/placeholder-dark-1.svg",
-        },
-        {
-            id: "post-2",
-            title: "Building Accessible Web Applications",
-            summary:
-                "Explore how to create inclusive web experiences using shadcn/ui's accessible components. Discover practical tips for implementing ARIA labels, keyboard navigation, and semantic HTML.",
-            label: "Accessibility",
-            author: "Marcus Rodriguez",
-            published: "1 Jan 2024",
-            url: "https://shadcnblocks.com",
-            image: "https://shadcnblocks.com/images/block/placeholder-dark-1.svg",
-        },
-        {
-            id: "post-3",
-            title: "Modern Design Systems with Tailwind CSS",
-            summary:
-                "Dive into creating scalable design systems using Tailwind CSS and shadcn/ui. Learn how to maintain consistency while building flexible and maintainable component libraries.",
-            label: "Design Systems",
-            author: "Emma Thompson",
-            published: "1 Jan 2024",
-            url: "https://shadcnblocks.com",
-            image: "https://shadcnblocks.com/images/block/placeholder-dark-1.svg",
-        },
-    ],
+    buttonUrl = "/blog",
 }) {
+
+    let blog;
+
+    try {
+        const { success, message, blogs } = await IndexBlogFunction()
+
+        if(!success) {
+            throw new Error(message)
+        }
+
+        blog = blogs
+    } catch (error) {
+        return
+    }
+
     return (
         <section className="py-16">
             <div className="container mx-auto flex flex-col items-center gap-16 lg:px-16">
@@ -62,17 +44,17 @@ export default function IndexBlog({
                         {description}
                     </p> */}
                     <Button variant="link" className="w-full sm:w-auto" asChild>
-                        <a href={buttonUrl} target="_blank">
+                        <Link href={buttonUrl}>
                             {buttonText}
                             <ArrowRight className="ml-2 size-4" />
-                        </a>
+                        </Link>
                     </Button>
                 </div>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-                    {posts.map((post) => (
+                    {blog.map((post) => (
                         <Card
                             key={post.id}
-                            className="grid grid-rows-[auto_auto_1fr_auto] pt-0"
+                            className="grid grid-rows-[auto_auto_1fr_auto] pt-0 overflow-hidden "
                         >
                             <div className="aspect-[16/9] w-full">
                                 <Link
@@ -81,7 +63,7 @@ export default function IndexBlog({
                                     className="transition-opacity duration-200 fade-in hover:opacity-70"
                                 >
                                     <img
-                                        src={post.image}
+                                        src={`${process.env.STORAGE_SERVER}/featured_img/${post.image}`}
                                         alt={post.title}
                                         className="h-full w-full object-cover object-center"
                                     />
@@ -95,7 +77,7 @@ export default function IndexBlog({
                                 </h3>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-muted-foreground">{post.summary}</p>
+                                <p className="text-muted-foreground">{post.meta_description}</p>
                             </CardContent>
                             <CardFooter>
                                 <Link

@@ -17,7 +17,7 @@ export default function Hero() {
                                 Transform your existing content into platform-specific formats with our AI-powered tool.
                             </p>
                             <div className="mt-7 flex w-full flex-col justify-center gap-2 sm:flex-row">
-                                <Link href={`signup`} className={`rounded-lg py-4 px-6 bg-green-800 font-semibold hover:bg-green-700 text-background flex gap-2`}>
+                                <Link href={`signup`} className={`rounded-lg py-4 px-6 bg-green-800 font-semibold hover:bg-green-700 text-background flex justify-center gap-2`}>
                                     Get Started <ArrowRight />
                                 </Link>
                             </div>
