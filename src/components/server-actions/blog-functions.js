@@ -6,7 +6,24 @@ export async function IndexBlogFunction() {
         const { rows: blogs } = await query(queryText);
         return { success: true, blogs }
     } catch (error) {
-        console.error(error);
         return { success: false, message: "Database error" };
+    }
+}
+
+export async function BlogData(url) {
+    try {
+
+        const queryText = "SELECT * FROM blogs WHERE url = $1";
+        const {rows: blogs} = query(queryText, [url])
+
+        if(blogs.length = 0) {
+            return {success: false, message: "No blog found for this url"}
+        }
+
+        return {success: true, blogs}
+        
+    } catch (error) {
+        console.log(error)
+        return {success: false, message: "failed to get blog"}
     }
 }
