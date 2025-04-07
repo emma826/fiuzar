@@ -11,19 +11,20 @@ export async function IndexBlogFunction() {
 }
 
 export async function BlogData(url) {
+
     try {
 
         const queryText = "SELECT * FROM blogs WHERE url = $1";
-        const {rows: blogs} = query(queryText, [url])
+        const {rows: blogs} = await query(queryText, [url])
 
-        if(blogs.length = 0) {
-            return {success: false, message: "No blog found for this url"}
+        if (blogs.length === 0) {
+            return { success: false, message: "No blog found for this url" }
         }
 
-        return {success: true, blogs}
-        
+        return { success: true, blogs: blogs[0] }
+
     } catch (error) {
         console.log(error)
-        return {success: false, message: "failed to get blog"}
+        return { success: false, message: "failed to get blog" }
     }
 }

@@ -57,8 +57,7 @@ export default async function IndexBlog({
                         >
                             <div className="aspect-[16/9] w-full">
                                 <Link
-                                    href={post.url}
-                                    target="_blank"
+                                    href={`/blog/${post.url}`}
                                     className="transition-opacity duration-200 fade-in hover:opacity-70"
                                 >
                                     <img
@@ -70,9 +69,9 @@ export default async function IndexBlog({
                             </div>
                             <CardHeader>
                                 <h3 className="text-lg font-semibold hover:underline md:text-xl">
-                                    <a href={post.url} target="_blank">
+                                    <Link href={`/blog/${post.url}`}>
                                         {post.title}
-                                    </a>
+                                    </Link>
                                 </h3>
                             </CardHeader>
                             <CardContent>
