@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 
 import Link from "next/link";
-// import Image from "next/image";
 
 import { IndexBlogFunction } from "../server-actions/blog-functions";
 
@@ -63,7 +62,7 @@ export default async function IndexBlog({
                                     className="transition-opacity duration-200 fade-in hover:opacity-70"
                                 >
                                     <img
-                                        src={`${process.env.STORAGE_SERVER}/featured_img/${post.image}`}
+                                        src={`${process.env.LOADONNG_SERVER}/featured_img/${post.image}`}
                                         alt={post.title}
                                         className="h-full w-full object-cover object-center"
                                     />
