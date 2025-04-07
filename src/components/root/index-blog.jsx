@@ -62,7 +62,7 @@ export default async function IndexBlog({
                                     className="transition-opacity duration-200 fade-in hover:opacity-70"
                                 >
                                     <img
-                                        src={`${process.env.LOADONNG_SERVER}/featured_img/${post.image}`}
+                                        src={`${process.env.LOADING_SERVER}/featured_img/${post.image}`}
                                         alt={post.title}
                                         className="h-full w-full object-cover object-center"
                                     />
