@@ -29,6 +29,8 @@ export default async function Blog_urlPage({ params }) {
         redirect("/blog")
     }
 
+    console.log(blogBody)
+
     return (
         <section className="py-[60px]">
             <div className="container">
@@ -41,7 +43,7 @@ export default async function Blog_urlPage({ params }) {
                                     <div className="mb-5 mr-10 flex items-center text-black">
                                         <div className="mr-4">
                                             <div className="relative h-10 w-10 overflow-hidden rounded-full">
-                                                <Image src={`/admin.jpg`} alt="author" width={300} height={300} />
+                                                <Image src={`/img/admin.jpg`} alt="Amoke Emmanuel" width={300} height={300} />
                                             </div>
                                         </div>
                                         <div className="w-full">
@@ -81,14 +83,14 @@ export default async function Blog_urlPage({ params }) {
                                         href="#0"
                                         className="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm bg-green-800 font-semibold text-white"
                                     >
-                                        {blogData.category || "Software"}
+                                        {blogData.category || "Content Repurposing"}
                                     </a>
                                 </div>
                             </div>
                             <div>
                                 <div className="mb-10 w-full overflow-hidden rounded">
                                     <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
-                                        <img src={`${process.env.LOADING_SERVER}/featured_img/${blogData.image}`} alt={blogData.title} width={300} height={300} className="object-cover object-center block w-full max-h-[500px]" />
+                                        <img src={`${process.env.NEXT_PUBLIC_STORAGE_SERVER}/featured_img/${blogData.image}`} alt={blogData.title} width={300} height={300} className="object-cover object-center block w-full max-h-[500px]" />
                                     </div>
                                 </div>
 
@@ -97,7 +99,7 @@ export default async function Blog_urlPage({ params }) {
                                 </div>
 
 
-                                <div className="items-center justify-between sm:flex">
+                                {/* <div className="items-center justify-between sm:flex">
                                     <div className="mb-5">
                                         <h4 className="mb-3 text-sm font-medium text-body-color">
                                             Popular Tags :
@@ -116,7 +118,7 @@ export default async function Blog_urlPage({ params }) {
                                             <SharePost />
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
