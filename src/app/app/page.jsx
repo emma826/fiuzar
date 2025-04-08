@@ -7,8 +7,10 @@ export const metadata = {
 export default function AppPage() {
     return (
         <>
-            <div className="container mx-auto">
+            <div className="w-full mx-auto">
                 <AppNavbar />
+
+                <div className="container mx-auto py-1">emma</div>
             </div>
         </>
     )
