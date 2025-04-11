@@ -16,8 +16,6 @@ export async function GET(req) {
 
             const nextStartId = blogs.length > 0 ? blogs[blogs.length - 1].id : null;
 
-            console.log(blogs)
-
             return NextResponse.json({ success: true, blogs, nextStartId });
         }
     } catch (error) {

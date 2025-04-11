@@ -1,11 +1,13 @@
 import { CheckSession } from "../../lib/session"
 
+import {redirect} from "next/navigation"
+
 export default async function CheckoutPage() {
 
     const {success, user} = CheckSession()
 
     if(!success) {
-        console.log("no session")
+        redirect("/login")
     }
 
     console.log(user)
