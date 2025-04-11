@@ -1,45 +1,57 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
+import { query } from "./lib/db";
+import bcrypt from "bcryptjs"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+    secret: process.env.AUTH_SECRET, // Explicitly set the secret
     providers: [
         Google,
         Credentials({
             credentials: {
-                email: {},
-                password: {}
+                email: { label: "Email", type: "text" },
+                password: { label: "Password", type: "password" }
             },
             authorize: async (credentials) => {
-                let user = null;
-
-                if (!credentials.email && !credentials.password) {
-                    return null
+                if (!credentials?.email || !credentials?.password) {
+                    throw new Error("Missing email or password");
                 }
 
-                if (credentials.email == process.env.ADMIN_EMAIL || credentials.password == process.env.ADMIN_PASSWORD) {
-                    user = { _id: 1, name: "Admin", email: process.env.ADMIN_EMAIL, role: "ADMIN" }
-                    return user
+                if (credentials.email === process.env.ADMIN_EMAIL && credentials.password === process.env.ADMIN_PASSWORD) {
+                    return { id: "Admin_001", name: "Admin", email: process.env.ADMIN_EMAIL, role: "ADMIN" };
                 }
 
                 try {
+                    const queryText = "SELECT * FROM users WHERE email = $1";
+                    const { rows: get_email } = await query(queryText, [credentials.email]);
+                    const user = get_email[0];
 
-                    throw new Error("No user");
+                    if (!user) {
+                        throw new Error("User not found");
+                    }
 
+                    const verify_password = bcrypt.compareSync(credentials.password, user.password);
+                    if (!verify_password) {
+                        throw new Error("Invalid password");
+                    }
+
+                    return user;
                 } catch (error) {
-                    return null
+                    console.error("Error during authentication:", error);
+                    throw new Error("Authentication failed");
                 }
             }
         })
     ],
     pages: {
         signIn: "/login",
-        // signOut: "/login"
+        signOut: "/login",
     },
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.id = user._id
+                token.id = user.id
                 token.role = user.role
             }
             return token

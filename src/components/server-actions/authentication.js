@@ -6,11 +6,15 @@ import nodemailer from "nodemailer"
 import bcrypt from "bcryptjs"
 
 export async function credentialsAction(formData) {
-    await signIn("credentials", formData)
+    try {
+        await signIn("credentials", formData)
+    }
+    catch (err) {
+    }
 }
 
 export async function FirstSignup(email) {
-    
+
     if (!email) {
         return { message: "Please input an email address" }
     }
@@ -27,7 +31,7 @@ export async function FirstSignup(email) {
         const queryText = "INSERT INTO verify_email(email, pin) VALUES($1, $2)";
         await query(queryText, [email, pin])
 
-        return {success: true, message: "Please click on the verification link in your email to continue the registration"}
+        return { success: true, message: "Please click on the verification link in your email to continue the registration" }
 
     } catch (error) {
         console.log(error)
@@ -50,27 +54,33 @@ export async function ContinueSignup(name, email, password, confirm_password, pi
     }
 
     try {
-        await connectToDatabase()
 
-        const findEmail = await verify_email.findOne({ email, pin })
+        const queryText = "SELECT * FROM verify_email WHERE email = $1 AND pin = $2";
+        const result = await query(queryText, [email, pin]);
+        const findEmail = result.rows[0];
 
-        if (!findEmail.email) {
-            throw new Error("server error")
+        if (!findEmail) {
+            throw new Error("server error");
         }
 
-        const previous_time = new Date(findEmail.createdAt).getTime()
-        const current_time = new Date().getTime()
-        const expiry_duration = 15 * 60 * 1000
-        const token_duration = current_time - previous_time
+        const previous_time = new Date(findEmail.created_at).getTime();
+        const current_time = new Date().getTime();
+        const expiry_duration = 15 * 60 * 1000;
+        const token_duration = current_time - previous_time;
 
         if (token_duration > expiry_duration) {
-            return { message: "verification has expired, please try again" }
+            return { message: "verification has expired, please try again" };
         }
 
-        const password_hash = bcrypt.hashSync(password, 10)
+        const password_hash = bcrypt.hashSync(password, 10);
 
-        // await verify_email.deleteMany({ email })
-        // await user_schema.create({ name, email, password: password_hash })
+        const deleteQuery = "DELETE FROM verify_email WHERE email = $1";
+        await query(deleteQuery, [email]);
+
+        const insertUserQuery = "INSERT INTO users(name, email, password) VALUES($1, $2, $3)";
+        await query(insertUserQuery, [name, email, password_hash]);
+
+
 
         return { success: true, message: "Registration successful, proceed to login ..." }
     } catch (error) {
@@ -119,7 +129,7 @@ async function sendVerificationEmail(email, pin) {
         from: process.env.EMAIL_USER,
         to: email,
         subject: "Email Verification From Fiuzar",
-        html: `<h1>This is a link to verify your email<h1> <a href="${process.env.WEBSITE_ADDRESS}/verify-user-email?email=${email}&pin=${pin}">${process.env.WEBSITEADDRESS}/verify-user-email?email=${email}&pin=${pin}</a></h1>`
+        html: `<h1>This is a link to verify your email<h1> <a href="${process.env.WEBSITE_ADDRESS}/verify-user-email?email=${email}&pin=${pin}">${process.env.WEBSITE_ADDRESS}/verify-user-email?email=${email}&pin=${pin}</a></h1>`
     }
 
     try {
