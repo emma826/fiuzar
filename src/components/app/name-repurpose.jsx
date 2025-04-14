@@ -47,7 +47,7 @@ export default function NameRepurpose() {
             .then(data => {
                 if (data.success) {
                     toast(<div className="text-green-700">Project created successfully!</div>)
-                    router.push(`/project/${data.id}`)
+                    router.push(`/app/project/${data.project_id}`)
                 } else {
                     toast(<div className="text-red-700">{data.message}</div>)
                 }

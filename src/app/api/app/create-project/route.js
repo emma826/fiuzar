@@ -27,8 +27,6 @@ export async function GET(request) {
         const { rows } = await query(fetchProjectsQuery, [user_id, limit, index]);
         const nextIndex = rows.length < limit ? null : index + limit;
 
-        console.log(rows)
-
         return NextResponse.json({
             success: true,
             message: "Projects fetched successfully",
@@ -37,7 +35,6 @@ export async function GET(request) {
             notice: nextIndex === null ? "No more projects to fetch" : undefined,
         });
     } catch (err) {
-        console.log(err);
         return NextResponse.json({ success: false, message: "Server error, please try again later" });
     }
 
@@ -78,13 +75,10 @@ export async function POST(req) {
         const {rows} = await query(createProjectQueryText, [user_id, "Untitled Project", projectData])
         const project_id = rows[0].id
 
-        console.log(project_id, rows)
-
         return NextResponse.json({ success: true, message: "Project Created successfully", project_id }, { status: 200 })
 
     }
     catch (err) {
-        console.log(err)
         return NextResponse.json({success: false, message: "Server error, please try again later"})
     }
 
@@ -120,8 +114,6 @@ async function scrape_data(content) {
         const title = $("title").text() || "No title found";
         const description = $('meta[name="description"]').attr("content") || "No description found";
         const contentData = $("body").text() || "No body content found";
-
-        console.log(title)
 
         // Return the scraped data
         return {

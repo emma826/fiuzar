@@ -31,7 +31,7 @@ export default function AppSidebar() {
                 </li>
 
                 <li className="hover:bg-gray-100">
-                    <Link href="/app/history" className="h-16 px-2 flex flex-col justify-center items-center w-full">
+                    <Link href="#" className="h-16 px-2 flex flex-col justify-center items-center w-full">
                         <svg className="h-5 w-5 mx-auto mb-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="1 4 1 10 7 10"></polyline>
                             <path d="M3.51 15a9 9 0 1 0 .49-9.27L1 10"></path>
