@@ -5,6 +5,7 @@ import { ProfileContext } from "@/app/app/integration/page"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Button } from "../ui/button"
+import Image from "next/image"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
@@ -52,16 +53,16 @@ export function UserProfile() {
                     alt="Mountain"
                 />
             </div>
-            <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
-                {profile.profileImage ? (
+            <div className="mx-auto w-32 h-32 relative -mt-16 border-4 bg-black border-white rounded-full overflow-hidden">
+                {profile.profile_image ? (
                     <img
                         className="object-cover object-center h-32 w-32"
-                        src={profile.profileImage}
+                        src={`${process.env.NEXT_PUBLIC_STORAGE_SERVER}/user_profile/${profile.profile_image}`} // Prepend base URL
                         alt="User Profile"
                     />
                 ) : (
                     <div className="h-full w-full flex items-center justify-center bg-gray-300 text-gray-700">
-                        Avatar
+                        No Image
                     </div>
                 )}
             </div>
@@ -86,8 +87,12 @@ export function UserProfile() {
 
 export function SettingsTab() {
     const { profile, setProfile, updateProfile } = useContext(ProfileContext);
-    const [formData, setFormData] = useState({ ...profile }); // Initialize with profile
+    const [formData, setFormData] = useState({});
     const [passwordData, setPasswordData] = useState({ oldPassword: "", newPassword: "", confirmPassword: "" });
+
+    useEffect(() => {
+        setFormData({ ...profile });
+    }, [profile]);
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -99,14 +104,29 @@ export function SettingsTab() {
         setPasswordData({ ...passwordData, [id]: value });
     };
 
-    const handleImageChange = (e) => {
+    const handleImageChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                setFormData({ ...formData, profileImage: reader.result });
-            };
-            reader.readAsDataURL(file);
+            const uploadFormData = new FormData(); // Renamed to avoid conflict with state
+            uploadFormData.append("category", "user_profile");
+            uploadFormData.append("file", file);
+
+            try {
+                const response = await fetch(process.env.NEXT_PUBLIC_STORAGE_SERVER, {
+                    method: "POST",
+                    body: uploadFormData,
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    setFormData((prev) => ({ ...prev, profileImage: data.fileName })); // Correctly update state
+                } else {
+                    console.error("Failed to upload image:", data.message);
+                }
+            } catch (error) {
+                console.error("Error uploading image:", error);
+            }
         }
     };
 
@@ -172,13 +192,13 @@ export function SettingsTab() {
                         <div className="h-40 w-40 rounded-full bg-black mx-auto overflow-hidden">
                             {formData.profileImage ? (
                                 <img
-                                    src={formData.profileImage}
+                                    src={`${process.env.NEXT_PUBLIC_STORAGE_SERVER}/user_profile/${formData.profileImage}`} // Prepend the base URL and folder
                                     alt="Profile"
-                                    className="h-full w-full object-cover"
+                                    className="h-full w-full object-cover object-center"
                                 />
                             ) : (
                                 <div className="h-full w-full flex items-center justify-center bg-gray-300 text-gray-700">
-                                    Avatar
+                                    No Image
                                 </div>
                             )}
                         </div>
@@ -207,29 +227,10 @@ export function SettingsTab() {
                         <div>
                             <Label htmlFor="email" className="block mb-2">Email</Label>
                             <Input
+                            disabled={true}
                                 id="email"
                                 type="email"
                                 value={formData.email || ""}
-                                onChange={handleInputChange}
-                                className="w-full border px-2 py-1"
-                            />
-                        </div>
-                        <div>
-                            <Label htmlFor="phone" className="block mb-2">Phone</Label>
-                            <Input
-                                id="phone"
-                                type="text"
-                                value={formData.phone || ""}
-                                onChange={handleInputChange}
-                                className="w-full border px-2 py-1"
-                            />
-                        </div>
-                        <div>
-                            <Label htmlFor="address" className="block mb-2">Address</Label>
-                            <Input
-                                id="address"
-                                type="text"
-                                value={formData.address || ""}
                                 onChange={handleInputChange}
                                 className="w-full border px-2 py-1"
                             />
@@ -244,7 +245,7 @@ export function SettingsTab() {
                         </Button>
                     </div>
                 </div>
-                {/* <div className="mb-4 rounded-2xl border border-gray-200 bg-white py-2 px-5 dark:border-gray-800 dark:bg-white/[0.03] md:px-6">
+                <div className="mb-4 rounded-2xl border border-gray-200 bg-white py-2 px-5 dark:border-gray-800 dark:bg-white/[0.03] md:px-6">
                     <h2 className="font-bold py-2 mb-3 text-2xl">Edit Password</h2>
                     <div className="mb-4">
                         <Label htmlFor="oldPassword" className="block mb-2">Old Password</Label>
@@ -286,7 +287,7 @@ export function SettingsTab() {
                             Save Password
                         </Button>
                     </div>
-                </div> */}
+                </div>
             </TabsContent>
         </Tabs>
     );
