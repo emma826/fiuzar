@@ -51,7 +51,7 @@ export function IndexRepurposeGrid() {
                                 <CardHeader>
                                     <CardTitle className={`mb-3`}>
                                         <Link href={`/app/project/${project.id}`}>
-                                            {project.project_name}
+                                            {project.project_name} ...
                                         </Link>
                                     </CardTitle>
                                     <CardDescription>

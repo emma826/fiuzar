@@ -5,9 +5,9 @@ import { ProfileContext } from "@/app/app/integration/page"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Button } from "../ui/button"
-import Image from "next/image"
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+import IntegrationContent from "./integration-content"
 
 export function UserProfile() {
     const { profile, setProfile, update, updateProfile } = useContext(ProfileContext);
@@ -183,7 +183,9 @@ export function SettingsTab() {
                 <TabsTrigger value="profile" className={`w-full flex justify-center font-medium rounded-l px-5 py-2 border`}>Edit Profile</TabsTrigger>
             </TabsList>
             <TabsContent value="integration" className={`py-2 pl-8 mx-auto w-full`}>
-                {/* Integration content */}
+                
+            <IntegrationContent />
+
             </TabsContent>
             <TabsContent value="profile" className={`py-2 pl-8 mx-auto w-full`}>
                 <div className="mb-4 rounded-2xl border border-gray-200 bg-white py-2 px-5 dark:border-gray-800 dark:bg-white/[0.03] md:px-6">
@@ -245,7 +247,7 @@ export function SettingsTab() {
                         </Button>
                     </div>
                 </div>
-                <div className="mb-4 rounded-2xl border border-gray-200 bg-white py-2 px-5 dark:border-gray-800 dark:bg-white/[0.03] md:px-6">
+                {/* <div className="mb-4 rounded-2xl border border-gray-200 bg-white py-2 px-5 dark:border-gray-800 dark:bg-white/[0.03] md:px-6">
                     <h2 className="font-bold py-2 mb-3 text-2xl">Edit Password</h2>
                     <div className="mb-4">
                         <Label htmlFor="oldPassword" className="block mb-2">Old Password</Label>
@@ -287,7 +289,7 @@ export function SettingsTab() {
                             Save Password
                         </Button>
                     </div>
-                </div>
+                </div> */}
             </TabsContent>
         </Tabs>
     );

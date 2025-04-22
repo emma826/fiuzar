@@ -20,11 +20,8 @@ export async function GET() {
             return NextResponse.json({ success: false, message: "No user found with this id" });
         }
 
-        console.log(userDetails)
-
         return NextResponse.json({ success: true, userDetails });
     } catch (error) {
-        console.log(error)
         return NextResponse.json({ success: false, message: "Server error, please try again later" });
     }
 }
