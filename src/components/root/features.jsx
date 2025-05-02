@@ -83,7 +83,7 @@ export default function Features({
                                 height={300}
                             />
                             <div className="space-y-2">
-                                <h3 className="font-bold">{feature.title}</h3>
+                                <h3 className="font-bold text-green-800">{feature.title}</h3>
                                 <p className="text-sm text-muted-foreground">{feature.description}</p>
                             </div>
                         </div>

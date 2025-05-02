@@ -1,9 +1,4 @@
-"use client";
-
-import Image from "next/image"
-import Link from "next/link"
-
-import { MenuIcon } from "lucide-react";
+import { Book, PenIcon, Menu, DollarSign, Settings, Users, GraduationCap } from "lucide-react";
 
 import {
     Accordion,
@@ -19,7 +14,6 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import {
     Sheet,
@@ -28,195 +22,224 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
+import Link from "next/link";
 
-const features = [
-    {
-        title: "Dashboard",
-        description: "Overview of your activity",
-        href: "#",
+export default function Header({
+    logo = {
+        url: "/",
+        src: "/img/logo-2.png",
+        alt: "Fiuzar",
+        title: "Fiuzar",
     },
-    {
-        title: "Analytics",
-        description: "Track your performance",
-        href: "#",
+    menu = [
+        { title: "Home", url: "/" },
+        {
+            title: "Product",
+            url: "#",
+            items: [
+                {
+                    title: "Features",
+                    description: "Explore the cutting-edge features that set our product apart.",
+                    icon: <Settings className="size-5 shrink-0" />,
+                    url: "#",
+                },
+                {
+                    title: "Pricing",
+                    description: "Discover flexible pricing plans tailored to your needs.",
+                    icon: <DollarSign className="size-5 shrink-0" />,
+                    url: "#",
+                },
+            ],
+        },
+        {
+            title: "Resources",
+            url: "#",
+            items: [
+                {
+                    title: "Blog",
+                    description: "Stay updated with the latest insights, tips, and industry trends.",
+                    icon: <PenIcon className="size-5 shrink-0" />,
+                    url: "/blog",
+                },
+                {
+                    title: "Documentation",
+                    description: "Access comprehensive guides and references for our product.",
+                    icon: <Book className="size-5 shrink-0" />,
+                    url: "#",
+                },
+                {
+                    title: "Tutorial",
+                    description: "Learn how to use our product with step-by-step tutorials.",
+                    icon: <GraduationCap className="size-5 shrink-0" />,
+                    url: "#",
+                },
+                {
+                    title: "Community",
+                    description: "Learn how to use our product with step-by-step tutorials.",
+                    icon: <Users className="size-5 shrink-0" />,
+                    url: "#",
+                },
+            ],
+        },
+        {
+            title: "About Us",
+            url: "/about",
+        },
+    ],
+    auth = {
+        login: { title: "Login", url: "#" },
+        signup: { title: "Sign up", url: "#" },
     },
-    {
-        title: "Settings",
-        description: "Configure your preferences",
-        href: "#",
-    },
-    {
-        title: "Integrations",
-        description: "Connect with other tools",
-        href: "#",
-    },
-    {
-        title: "Storage",
-        description: "Manage your files",
-        href: "#",
-    },
-    {
-        title: "Support",
-        description: "Get help when needed",
-        href: "#",
-    },
-];
-
-export default function Header() {
+}) {
     return (
-        <section className="px-3 sticky top-0 bg-gray-50 z-50">
-            <div className="container md:mx-auto py-3">
-                <nav className="flex items-center justify-between pt-5 lg:pt-0">
-                    <Link
-                        href="/"
-                        className="flex items-center gap-2"
-                    >
-                        <Image
-                            src="/img/logo-2.png"
-                            className="h-8 w-8"
-                            alt="Fiuzar logo"
-                            width={400}
-                            height={400}
-                        />
-                        <span className="text-2xl font-bold tracking-tighter text-green-800">
-                            Fiuzar
-                        </span>
-                    </Link>
-                    <NavigationMenu className="hidden lg:block">
-                        <NavigationMenuList>
-                            {/* <NavigationMenuItem>
-                                <NavigationMenuTrigger>Features</NavigationMenuTrigger>
-                                <NavigationMenuContent>
-                                    <div className="grid w-[600px] grid-cols-2 p-3">
-                                        {features.map((feature, index) => (
-                                            <NavigationMenuLink
-                                                href={feature.href}
-                                                key={index}
-                                                className="rounded-md p-3 transition-colors hover:bg-muted/70"
-                                            >
-                                                <div key={feature.title}>
-                                                    <p className="mb-1 font-semibold text-foreground">
-                                                        {feature.title}
-                                                    </p>
-                                                    <p className="text-sm text-muted-foreground">
-                                                        {feature.description}
-                                                    </p>
-                                                </div>
-                                            </NavigationMenuLink>
-                                        ))}
-                                    </div>
-                                </NavigationMenuContent>
-                            </NavigationMenuItem> */}
-                            <NavigationMenuItem>
-                                <NavigationMenuLink
-                                    href="/"
-                                    className={navigationMenuTriggerStyle()}
-                                >
-                                    Home
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
-                            {/* <NavigationMenuItem>
-                                <NavigationMenuLink
-                                    href="/pricing"
-                                    className={navigationMenuTriggerStyle()}
-                                >
-                                    Pricing
-                                </NavigationMenuLink>
-                            </NavigationMenuItem> */}
-                            <NavigationMenuItem>
-                                <NavigationMenuLink
-                                    href="/blog"
-                                    className={navigationMenuTriggerStyle()}
-                                >
-                                    Blog
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
-                            <NavigationMenuItem>
-                                <NavigationMenuLink
-                                    href="/about"
-                                    className={navigationMenuTriggerStyle()}
-                                >
-                                    About Us
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
-                        </NavigationMenuList>
-                    </NavigationMenu>
-                    <div className="hidden items-center gap-4 lg:flex">
-                        <Link href={`login`} className={`rounded-lg py-3 px-6 bg-green-800 font-semibold hover:bg-green-700 text-background`}>Start for free</Link>
+        <section className="py-2 px-4 sticky top-0 z-[990] bg-white">
+            <div className="container">
+                <nav className="hidden justify-between lg:flex">
+                    <div className="flex items-center gap-6">
+                        {/* Logo */}
+                        <Link href={logo.url} className="flex items-center gap-2">
+                            <img src={logo.src} className="max-h-8" alt={logo.alt} />
+                            <span className="text-lg font-semibold tracking-tighter">
+                                {logo.title}
+                            </span>
+                        </Link>
+                        <div className="flex items-center">
+                            <NavigationMenu>
+                                <NavigationMenuList>
+                                    {menu.map((item) => renderMenuItem(item))}
+                                </NavigationMenuList>
+                            </NavigationMenu>
+                        </div>
                     </div>
-                    <Sheet>
-                        <SheetTrigger asChild className="lg:hidden">
-                            <Button variant="outline" size="icon">
-                                <MenuIcon className="h-4 w-4" />
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="top" className="max-h-screen overflow-hidden px-1">
-                            <SheetHeader>
-                                <SheetTitle>
-                                    <Link
-                                        href="/"
-                                        className="flex items-center gap-2"
-                                    >
-                                        <Image
-                                            src="/img/logo-2.png"
-                                            className="h-8 w-8"
-                                            alt="Fiuzar logo"
-                                            width={400}
-                                            height={400}
-                                        />
-                                        <span className="text-lg font-semibold tracking-tighter">
-                                            Fiuzar
-                                        </span>
-                                    </Link>
-                                </SheetTitle>
-                            </SheetHeader>
-                            <div className="flex flex-col p-4">
-                                {/* <Accordion type="single" collapsible className="mt-4 mb-2">
-                                    <AccordionItem value="solutions" className="border-none">
-                                        <AccordionTrigger className="text-base hover:no-underline">
-                                            Features
-                                        </AccordionTrigger>
-                                        <AccordionContent>
-                                            <div className="grid md:grid-cols-2">
-                                                {features.map((feature, index) => (
-                                                    <a
-                                                        href={feature.href}
-                                                        key={index}
-                                                        className="rounded-md p-3 transition-colors hover:bg-muted/70"
-                                                    >
-                                                        <div key={feature.title}>
-                                                            <p className="mb-1 font-semibold text-foreground">
-                                                                {feature.title}
-                                                            </p>
-                                                            <p className="text-sm text-muted-foreground">
-                                                                {feature.description}
-                                                            </p>
-                                                        </div>
-                                                    </a>
-                                                ))}
-                                            </div>
-                                        </AccordionContent>
-                                    </AccordionItem>
-                                </Accordion> */}
-                                <div className="flex flex-col gap-6">
-                                    <Link href="/" className="font-medium">
-                                        Home
-                                    </Link>
-                                    <Link href="/blog" className="font-medium">
-                                        Blog
-                                    </Link>
-                                    <Link href="/about" className="font-medium">
-                                        About Us
-                                    </Link>
-                                </div>
-                                <div className="mt-6 flex flex-col gap-4">
-                                    <Link href={`login`} className={`rounded-lg py-3 px-6 bg-green-800 text-background`}>Start for free</Link>
-                                </div>
-                            </div>
-                        </SheetContent>
-                    </Sheet>
+                    <div className="flex gap-2">
+                        <Button asChild variant="outline" size="sm">
+                            <Link href={auth.login.url}>{auth.login.title}</Link>
+                        </Button>
+                        <Button asChild size="sm">
+                            <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                        </Button>
+                    </div>
                 </nav>
+
+                {/* Mobile Menu */}
+                <div className="block lg:hidden">
+                    <div className="flex items-center justify-between">
+                        {/* Logo */}
+                        <Link href={logo.url} className="flex items-center gap-2">
+                            <img src={logo.src} className="max-h-8" alt={logo.alt} />
+                        </Link>
+                        <Sheet>
+                            <SheetTrigger asChild>
+                                <Button variant="outline" size="icon">
+                                    <Menu className="size-4" />
+                                </Button>
+                            </SheetTrigger>
+                            <SheetContent className="overflow-y-auto">
+                                <SheetHeader>
+                                    <SheetTitle>
+                                        <Link href={logo.url} className="flex items-center gap-2">
+                                            <img src={logo.src} className="max-h-8" alt={logo.alt} />
+                                        </Link>
+                                    </SheetTitle>
+                                </SheetHeader>
+                                <div className="flex flex-col gap-6 p-4">
+                                    <Accordion
+                                        type="single"
+                                        collapsible
+                                        className="flex w-full flex-col gap-4"
+                                    >
+                                        {menu.map((item) => renderMobileMenuItem(item))}
+                                    </Accordion>
+
+                                    <div className="flex flex-col gap-3">
+                                        <Button asChild variant="outline">
+                                            <Link href={auth.login.url}>{auth.login.title}</Link>
+                                        </Button>
+                                        <Button asChild>
+                                            <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                                        </Button>
+                                    </div>
+                                </div>
+                            </SheetContent>
+                        </Sheet>
+                    </div>
+                </div>
             </div>
         </section>
-    )
-}
+    );
+};
+
+const renderMenuItem = (item) => {
+    if (item.items) {
+        return (
+            <NavigationMenuItem key={item.title}>
+                <NavigationMenuTrigger className={`bg-white`}>{item.title}</NavigationMenuTrigger>
+                <NavigationMenuContent className="bg-popover text-popover-foreground">
+                    {item.items.map((subItem) => (
+                        <NavigationMenuLink
+                            asChild
+                            key={subItem.title}
+                            className="w-80"
+                            href={subItem.url || "#"} // Fallback to "#" if url is undefined
+                        >
+                            <SubMenuLink item={subItem} />
+                        </NavigationMenuLink>
+                    ))}
+                </NavigationMenuContent>
+            </NavigationMenuItem>
+        );
+    }
+
+    return (
+        <NavigationMenuItem key={item.title}>
+            <NavigationMenuLink
+                href={item.url || "#"} // Fallback to "#" if url is undefined
+                className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
+            >
+                {item.title}
+            </NavigationMenuLink>
+        </NavigationMenuItem>
+    );
+};
+
+const renderMobileMenuItem = (item) => {
+    if (item.items) {
+        return (
+            <AccordionItem key={item.title} value={item.title} className="border-b-0">
+                <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">
+                    {item.title}
+                </AccordionTrigger>
+                <AccordionContent className="mt-2">
+                    {item.items.map((subItem) => (
+                        <SubMenuLink key={subItem.title} item={subItem} />
+                    ))}
+                </AccordionContent>
+            </AccordionItem>
+        );
+    }
+
+    return (
+        <Link key={item.title} href={item.url || "#"} className="text-md font-semibold">
+            {item.title}
+        </Link>
+    );
+};
+
+const SubMenuLink = ({ item }) => {
+    return (
+        <Link
+            className="flex flex-row gap-4 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-muted hover:text-accent-foreground"
+            href={item.url}
+        >
+            <div className="text-foreground">{item.icon}</div>
+            <div>
+                <div className="text-sm font-semibold">{item.title}</div>
+                {item.description && (
+                    <p className="text-sm leading-snug text-muted-foreground">
+                        {item.description}
+                    </p>
+                )}
+            </div>
+        </Link>
+    );
+};

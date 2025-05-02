@@ -29,12 +29,10 @@ export default async function Blog_urlPage({ params }) {
         redirect("/blog")
     }
 
-    console.log(blogBody)
-
     return (
-        <section className="py-[60px]">
-            <div className="container">
-                <div className="-mx-4 flex flex-wrap justify-center">
+        <section className="lg:py-[60px] py-5">
+            <div className="container mx-auto">
+                <div className="-mx-4 flex flex-wrap justify-center px-4">
                     <div className="w-full px-4 lg:w-8/12">
                         <div>
                             <h1 className="mb-8 text-4xl font-bold leading-tight text-black sm:text-4xl sm:leading-tight">{blogData.title}</h1>
@@ -78,14 +76,14 @@ export default async function Blog_urlPage({ params }) {
                                         </p>
                                     </div>
                                 </div>
-                                <div className="mb-5">
+                                {/* <div className="mb-5">
                                     <a
                                         href="#0"
                                         className="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm bg-green-800 font-semibold text-white"
                                     >
                                         {blogData.category || "Content Repurposing"}
                                     </a>
-                                </div>
+                                </div> */}
                             </div>
                             <div>
                                 <div className="mb-10 w-full overflow-hidden rounded">
@@ -94,7 +92,7 @@ export default async function Blog_urlPage({ params }) {
                                     </div>
                                 </div>
 
-                                <div className="py-10 text-black -mt-5">
+                                <div className="text-black -mt-5">
                                     <BlogPost blogPost={blogBody} />
                                 </div>
 

@@ -1,18 +1,35 @@
 import AppSidebar from "@/layout/app-sidebar"
 import { Toaster } from "@/components/ui/sonner"
 
+// import {
+//     Breadcrumb,
+//     BreadcrumbItem,
+//     BreadcrumbLink,
+//     BreadcrumbList,
+//     BreadcrumbPage,
+//     BreadcrumbSeparator,
+// } from "@/components/ui/breadcrumb"
+// import { Separator } from "@/components/ui/separator"
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar"
+
 export const metadata = {
-    title : "App | Fiuzar"
+    title: "App | Fiuzar"
 }
 
 export default function AppLayout({ children }) {
     return (
         <>
-            <div className="h-screen w-screen flex bg-gray-100">
+            <SidebarProvider style={{ "--sidebar-width": "350px", }}>
                 <AppSidebar />
-                {children}
-                <Toaster />
-            </div>
+                <SidebarInset>
+                    {children}
+                    <Toaster />
+                </SidebarInset>
+            </SidebarProvider>
         </>
     )
 }

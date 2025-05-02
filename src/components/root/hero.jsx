@@ -10,16 +10,19 @@ export default function Hero() {
     return (
         <section className="relative overflow-hidden py-20 min-h-screen">
             <div className="absolute inset-x-0 top-0 flex h-full w-full items-center justify-center opacity-100">
-                <img
+                <Image
                     alt="background"
-                    src="https://shadcnblocks.com/images/block/patterns/square-alt-grid.svg"
-                    className="opacity-90 [mask-image:radial-gradient(75%_75%_at_center,white,transparent)]"
+                    src="/img/download.jpeg"
+                    style={{ filter: "brightness(30%)" }}
+                    className="opacity-90 w-full h-screen -mt-20 object-cover"
+                    width={400}
+                    height={400}
                 />
             </div>
             <div className="relative z-10 container mx-auto">
-                <div className="mx-auto flex max-w-5xl flex-col items-center">
+                <div className="mx-auto flex max-w-5xl flex-col items-center mt-16">
                     <div className="flex flex-col items-center gap-6 text-center">
-                        <div className="rounded-xl bg-background/30 p-4 shadow-sm backdrop-blur-sm">
+                        <div className="rounded-xl bg-white p-4 shadow-sm backdrop-blur-sm">
                             <Image
                                 src="/img/logo-2.png"
                                 alt="logo"
@@ -33,7 +36,7 @@ export default function Hero() {
                                 Repurpose Your Content With{" "}
                                 <span className="text-primary">Fiuzar</span>
                             </h1>
-                            <p className="mx-auto max-w-3xl text-muted-foreground lg:text-xl">
+                            <p className="mx-auto max-w-3xl text-white lg:text-xl">
                                 Transform your existing content into platform-specific formats with our AI-powered tool.
                             </p>
                         </div>
@@ -46,8 +49,7 @@ export default function Hero() {
 
                             <Link href={`/blog`}>
                                 <Button variant="outline" className="group py-7">
-                                    Learn more{" "}
-                                    <ExternalLink className="ml-2 h-4 transition-transform group-hover:translate-x-0.5" />
+                                    Learn more
                                 </Button>
                             </Link>
 

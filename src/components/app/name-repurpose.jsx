@@ -3,10 +3,11 @@
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { Button } from "../ui/button"
-import { Send } from "lucide-react"
+import { SendHorizontal, SearchIcon } from "lucide-react"
 import { Suspense, useContext } from "react"
 import { SkeletonPageSingle } from "@/layout/skeleton-page"
 import { toast } from "sonner"
+import DocumentEditor from "./document-editor"
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -15,18 +16,48 @@ import { nameContext } from "@/app/app/page"
 export default function NameRepurpose() {
     const router = useRouter()
     const { recent, fetchRecent } = useContext(nameContext)
-    const [url, setURL] = useState(false)
-    const [project, setProject] = useState("")
+    const [url, setURL] = useState("")
+    const [shouldScrape, setShouldScrape] = useState(true)
+    const [h1, setH1] = useState("")
+    const [article, setArticle] = useState("")
+
+    async function scrapeUrl() {
+        if (!url || !shouldScrape) {
+            return
+        }
+
+        setShouldScrape(false)
+
+        try {
+
+            const response = await fetch("/api/app/create-project/scrapeBlog", {
+                header: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ url }),
+                method: "POST"
+            })
+            
+            const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to scrape data")
+            }
+
+            setURL("")
+            setH1(data.h1 || "")
+            setArticle(data.article || "")
+            setShouldScrape(true)
+
+        } catch (error) {
+            setShouldScrape(true)
+            toast(<div className="text-red-700">{error.message}</div>) // Use error.message
+        }
+
+    }
 
     function create_projects() {
         fetchRecent(false)
-        let contentType
-
-        if (url === true) {
-            contentType = "url"
-        } else {
-            contentType = "text"
-        }
 
         fetch("/api/app/create-project", {
             method: "POST",
@@ -34,8 +65,9 @@ export default function NameRepurpose() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                contentType: contentType,
-                content: project,
+                name: h1,
+                content: article,
+                type: "blog",
             }),
         })
             .then(response => {
@@ -53,45 +85,29 @@ export default function NameRepurpose() {
                 }
             })
             .catch(error => {
-                toast(<div className="text-red-700">Error: {error.message}</div>)
+                toast(<div className="text-red-700">Error: {error.message}</div>) // Use error.message
                 console.error("Error:", error)
             })
     }
 
     return (
         <Suspense fallback={<SkeletonPageSingle />}>
-            <div className="max-w-[700px] w-full mx-auto">
-                <div className="rounded-2xl border border-gray-200 bg-white py-2 px-5 dark:border-gray-800 dark:bg-white/[0.03] md:px-6">
-                    {url ? (
-                        <Input
-                            className={`shadow-none focus-visible:border-none border-none py-4 outline-none resize-none focus:outline-none focus:border-none mb-3`}
-                            type="text"
-                            placeholder="Paste your content URL here"
-                            value={project}
-                            onChange={(e) => setProject(e.target.value)}
-                        />
-                    ) : (
-                        <Textarea
-                            className={`shadow-none focus-visible:border-none border-none py-4 outline-none resize-none focus:outline-none focus:border-none mb-3 max-h-80`}
-                            placeholder="Type in your content here"
-                            value={project}
-                            onChange={(e) => setProject(e.target.value)}
-                        />
-                    )}
 
-                    <div className="border-t border-gray-300 py-2 flex gap-2 justify-between">
-                        <div className="flex gap-2">
-                            <Button onClick={() => {
-                                setURL(false)
-                                setProject("")
-                            }} className="rounded-2xl py-2.5 px-3 hover:bg-gray-300 cursor-pointer text-gray-900 bg-gray-200 border border-gray-200">Text</Button>
-                        </div>
-                        <Button onClick={() => create_projects()} className="cursor-pointer p-3 hover:bg-green-700 bg-green-800 rounded-lg">
-                            <Send className="text-white w-7 h-7" />
-                        </Button>
-                    </div>
+            <div className="px-4 md:px-10 flex justify-center gap-4 sticky top-0">
+                <div className="rounded-sm border max-w-[500px] w-full border-gray-200 bg-white flex justify-between dark:border-gray-800 overflow-hidden dark:bg-white/[0.03]">
+                    <Input type="text" value={url} onChange={(e) => setURL(e.target.value)} style={{ outline: "none", border: "none" }} placeholder="Paste blog url ..." className="border-none py-6 flex-auto rounded-none focus:ring-0" />
+                    <SearchIcon onClick={() => scrapeUrl()} className="block w-10 mt-3 cursor-pointer align-middle text-gray-500" />
+                </div>
+
+                <div onClick={() => create_projects()} className="cursor-pointer flex gap-2 font-semibold py-3 text-white align-center px-3 hover:bg-green-700 bg-green-800 rounded-lg">
+                    Repurpose
+                    <span className="text-white">
+                        <SendHorizontal />
+                    </span>
                 </div>
             </div>
+
+            <DocumentEditor h1={h1} setH1={setH1} article={article} setArticle={setArticle} />
         </Suspense>
     )
 }

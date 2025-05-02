@@ -33,7 +33,7 @@ export default function BlogGrid() {
     }, []);
 
     const loadMoreBlogs = async () => {
-        if (!nextStartId || loading) return; // Prevent multiple requests or loading when no more blogs
+        if (!nextStartId || loading) return;
         setLoading(true);
         try {
             const response = await fetch(`/api/root/blog?startId=${nextStartId}`);
@@ -63,27 +63,24 @@ export default function BlogGrid() {
                         {recentBlogs.map((blog) => (
                             <div key={blog.id} className="flex flex-col overflow-hidden rounded-lg shadow-lg">
                                 <div className="flex-shrink-0">
-                                    <img className="h-48 w-full object-cover" src={`${process.env.NEXT_PUBLIC_STORAGE_SERVER}/featured_img/${blogData.image}`} alt={blog.title} />
+                                    <img className="h-48 w-full object-cover" src={`${process.env.NEXT_PUBLIC_STORAGE_SERVER}/featured_img/${blog.image}`} alt={blog.title} />
                                 </div>
                                 <div className="flex flex-1 flex-col justify-between bg-white p-6">
                                     <div className="flex-1">
-                                        <p className="text-sm font-medium text-indigo-600">
-                                            <a href="#" className="hover:underline">{blog.tags[0]}</a>
-                                        </p>
-                                        <a href="#" className="mt-2 block">
+                                        <Link href={`/blog/${blog.url}`} className="mt-2 block">
                                             <p className="text-xl font-semibold text-gray-900">{blog.title}</p>
                                             <p className="mt-3 text-base text-gray-500">{blog.paragraph}</p>
-                                        </a>
+                                        </Link>
                                     </div>
                                     <div className="mt-6 flex items-center">
                                         <div className="flex-shrink-0">
-                                            <a href="#">
-                                                <Image className="h-10 w-10 rounded-full" src={blog.author.image || "/img/admin.jpg"} alt={blog.author.name || "Amoke Emmanuel"} />
-                                            </a>
+                                            <Link href={`/blog/${blog.url}`}>
+                                                <Image className="h-10 w-10 rounded-full" src={blog.author.image || "/img/admin.jpg"} alt={blog.author.name || "Amoke Emmanuel"} width={350} height={350} />
+                                            </Link>
                                         </div>
                                         <div className="ml-3">
                                             <p className="text-sm font-medium text-gray-900">
-                                                <Link href="#" className="hover:underline">{blog.author.name}</Link>
+                                                <Link href={`/blog/${blog.url}`} className="hover:underline">{blog.author.name}</Link>
                                             </p>
                                             <div className="flex space-x-1 text-sm text-gray-500">
                                                 <time>{new Date(blog.created_at).toDateString()}</time>
@@ -98,7 +95,7 @@ export default function BlogGrid() {
                         <div className="mt-8 flex justify-center">
                             <button
                                 onClick={loadMoreBlogs}
-                                className="px-4 py-2 text-white bg-indigo-600 rounded hover:bg-indigo-700"
+                                className="px-4 py-2 text-white bg-green-800 rounded hover:bg-green-700 cursor-pointer"
                                 disabled={loading}
                             >
                                 {loading ? "Loading..." : "Load More"}

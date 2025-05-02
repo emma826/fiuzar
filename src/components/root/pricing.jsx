@@ -118,7 +118,7 @@ export default function Pricing({
                     </p>
                     <div
                         className="my-10 lg:my-6 flex items-baseline justify-center text-5xl leading-none font-extrabold text-gray-900 dark:text-gray-100">
-                        <span className="font-brown">$15</span><span className="text-xl leading-7 font-medium text-gray-500 font-ttnorms">/month</span>
+                        <span className="font-brown">$30</span><span className="text-xl leading-7 font-medium text-gray-500 font-ttnorms">/month</span>
                     </div>
                     <div className="lg:mt-6">
                         <div className="rounded-md shadow">

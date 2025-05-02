@@ -24,7 +24,6 @@ export async function BlogData(url) {
         return { success: true, blogs: blogs[0] }
 
     } catch (error) {
-        console.log(error)
         return { success: false, message: "failed to get blog" }
     }
 }
