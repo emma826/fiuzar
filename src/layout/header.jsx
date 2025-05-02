@@ -87,13 +87,13 @@ export default function Header({
         },
     ],
     auth = {
-        login: { title: "Login", url: "#" },
-        signup: { title: "Sign up", url: "#" },
+        login: { title: "Login", url: "/login" },
+        signup: { title: "Sign up", url: "signup" },
     },
 }) {
     return (
-        <section className="py-2 px-4 sticky top-0 z-[990] bg-white">
-            <div className="container">
+        <section className="py-2 px-4 sticky top-0 z-[990] bg-white border-b">
+            <div className="container mx-auto">
                 <nav className="hidden justify-between lg:flex">
                     <div className="flex items-center gap-6">
                         {/* Logo */}

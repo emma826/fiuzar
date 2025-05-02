@@ -7,94 +7,76 @@ export default function AboutPage() {
         <>
             <section className="py-16">
                 <div className="container flex flex-col gap-28 mx-auto">
-                    <div className="flex flex-col gap-7">
-                        <h1 className="text-3xl font-extrabold text-green-800 max-w-3xl text-center mx-auto lg:text-6xl">
-                            Simplifying Content Repurposing for Everyone
-                        </h1>
-                        <p className="max-w-xl mx-auto text-center text-lg">
-                            We're a team of content creators and marketers who understand the struggle of repurposing content. That's why we built Fiuzar to simplify the process and help you maximize your content's impact.
-                        </p>
-                    </div>
-                    <div className="grid gap-6 md:grid-cols-2">
-                        <Image
-                            src="https://shadcnblocks.com/images/block/placeholder-1.svg"
-                            alt="placeholder"
-                            className="size-full max-h-96 rounded-2xl object-cover"
-                            width={400}
-                            height={400}
-                        />
-                        <div className="flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10">
-                            <p className="text-sm text-muted-foreground">OUR MISSION</p>
-                            <p className="text-lg font-medium">
-                                We're on a mission to empower 100,000 marketers to reclaim their time and amplify their impact. We're building Fiuzar, a platform designed to streamline your content repurposing and eventually, your entire marketing automation workflow. We believe that efficient marketing shouldn't be a luxury, it should be the standard.
-                            </p>
+
+                    <section className="relative xl:mr-0 lg:mr-5 mr-0">
+                        <div className="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
+                            <div className="w-full justify-start items-center xl:gap-12 gap-10 grid lg:grid-cols-2 grid-cols-1">
+                                <div className="w-full flex-col justify-center lg:items-start items-center gap-10 inline-flex">
+                                    <div className="w-full flex-col justify-center items-start gap-8 flex">
+                                        <div className="flex-col justify-start lg:items-start items-center gap-4 flex">
+                                            <h6 className="text-gray-400 text-base font-normal leading-relaxed">About Us</h6>
+                                            <div className="w-full flex-col justify-start lg:items-start items-center gap-3 flex">
+                                                <h1
+                                                    className="text-4xl text-green-800 font-bold font-manrope leading-normal lg:text-start text-center">
+                                                    Simplifying Content Repurposing for Everyone</h1>
+                                                <p
+                                                    className="text-gray-500 text-base font-normal leading-relaxed lg:text-start text-center">
+                                                    We're a team of content creators and marketers who understand the struggle of repurposing content. That's why we built Fiuzar to simplify the process and help you maximize your content's impact.
+                                                    </p>
+                                            </div>
+                                        </div>
+                                        <div className="w-full flex-col justify-center items-start gap-6 flex">
+                                            <div className="w-full justify-start items-center gap-8 grid md:grid-cols-2 grid-cols-1">
+                                                <div
+                                                    className="w-full h-full p-3.5 rounded-xl border border-gray-200 hover:border-gray-400 transition-all duration-700 ease-in-out flex-col justify-start items-start gap-2.5 inline-flex">
+                                                    <h4 className="text-gray-900 text-2xl font-bold font-manrope leading-9">5000+ Projects Completed</h4>
+                                                    <p className="text-gray-500 text-base font-normal leading-relaxed">Delivering quality and innovation across diverse industries.</p>
+                                                </div>
+                                                <div
+                                                    className="w-full h-full p-3.5 rounded-xl border border-gray-200 hover:border-gray-400 transition-all duration-700 ease-in-out flex-col justify-start items-start gap-2.5 inline-flex">
+                                                    <h4 className="text-gray-900 text-2xl font-bold font-manrope leading-9">10+ Team Members</h4>
+                                                    <p className="text-gray-500 text-base font-normal leading-relaxed">A passionate team dedicated to achieving excellence.</p>
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-full justify-start items-center gap-8 grid md:grid-cols-2 grid-cols-1">
+                                                <div
+                                                    className="w-full p-3.5 rounded-xl border border-gray-200 hover:border-gray-400 transition-all duration-700 ease-in-out flex-col justify-start items-start gap-2.5 inline-flex">
+                                                    <h4 className="text-gray-900 text-2xl font-bold font-manrope leading-9">5+ Countries Served</h4>
+                                                    <p className="text-gray-500 text-base font-normal leading-relaxed">Expanding our reach to empower global audiences.</p>
+                                                </div>
+                                                <div
+                                                    className="w-full h-full p-3.5 rounded-xl border border-gray-200 hover:border-gray-400 transition-all duration-700 ease-in-out flex-col justify-start items-start gap-2.5 inline-flex">
+                                                    <h4 className="text-gray-900 text-2xl font-bold font-manrope leading-9">98% Customer Satisfaction</h4>
+                                                    <p className="text-gray-500 text-base font-normal leading-relaxed">Committed to delivering exceptional experiences.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-full lg:justify-start justify-center items-start flex">
+                                    <div
+                                        className="sm:w-[564px] w-full sm:h-[646px] h-full sm:bg-gray-100 rounded-3xl sm:border border-gray-200 relative">
+                                        <img className="sm:mt-5 sm:ml-5 w-full h-full rounded-3xl object-cover"
+                                            src="https://pagedone.io/asset/uploads/1717742431.png" alt="about Us image" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    {/* <div className="flex flex-col gap-6 md:gap-20">
+                    </section>
+
+                    
+                    <div className="flex flex-col gap-6 md:gap-20 px-4">
                         <div className="max-w-xl">
-                            <h2 className="mb-2.5 text-3xl font-semibold md:text-5xl">
-                                We make creating software ridiculously easy
+                            <h2 className="mb-2.5 text-2xl font-semibold md:text-5xl">
+                                Our Mission & Values
                             </h2>
                             <p className="text-muted-foreground">
-                                We aim to help empower 1,000,000 teams to create their own
-                                software. Here is how we plan on doing it.
+                                We aim to make content creation effortless by turning long form pieces into platform-ready gems in seconds
                             </p>
-                        </div>
-                        <div className="grid gap-10 md:grid-cols-3">
-                            <div className="flex flex-col">
-                                <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent">
-                                    <Files className="size-5" />
-                                </div>
-                                <h3 className="mt-2 mb-3 text-lg font-semibold">
-                                    Being radically open
-                                </h3>
-                                <p className="text-muted-foreground">
-                                    We believe there’s no room for big egos and there’s always time
-                                    to help each other. We strive to give and receive feedback,
-                                    ideas, perspectives
-                                </p>
-                            </div>
-                            <div className="flex flex-col">
-                                <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent">
-                                    <CircleArrowRight className="size-5" />
-                                </div>
-                                <h3 className="mt-2 mb-3 text-lg font-semibold">
-                                    Moving the needle
-                                </h3>
-                                <p className="text-muted-foreground">
-                                    Boldly, bravely and with clear aims. We seek out the big
-                                    opportunities and double down on the most important things to
-                                    work on.
-                                </p>
-                            </div>
-                            <div className="flex flex-col">
-                                <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent">
-                                    <Settings className="size-5" />
-                                </div>
-                                <h3 className="mt-2 mb-3 text-lg font-semibold">
-                                    Optimizing for empowerment
-                                </h3>
-                                <p className="text-muted-foreground">
-                                    We believe that everyone should be empowered to do whatever they
-                                    think is in the company&apos;s best interests.
-                                </p>
-                            </div>
-                        </div>
-                    </div> */}
-                    <div className="grid gap-10 md:grid-cols-2">
-                        <div>
-                            <h2 className="mb-2.5 text-3xl font-semibold md:text-5xl">
-                                What Drives Us: Empowerment, Boldness, and Openness in Marketing
-                            </h2>
-                        </div>
-                        <div>
-                            <p className="font-bold text-lg mb-2">At Fiuzar, we're guided by these core values:</p>
+                            <p className="text-muted-foreground">
+                                We are just getting started, New features, smarter AI and a full suite of marketing tools are coming.
+                            </p>
 
-                            <p>We believe in transparency, collaboration, and open communication in the marketing world.</p>
-                            <p>We're driven by bold ambitions and a commitment to making a real impact on marketing efficiency.</p>
-                            <p>We believe in giving you the tools and autonomy to succeed in your marketing efforts.</p>
-
-                            <p className="mt-2">These values are woven into the fabric of our product and our company culture, driving us to build the best possible marketing automation platform.</p>
                         </div>
                     </div>
                 </div>

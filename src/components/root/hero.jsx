@@ -1,63 +1,63 @@
-import { ArrowRight, ExternalLink } from "lucide-react";
-import Link from "next/link"
+import { Wifi, Zap } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
+import Link from "next/link"
 import Image from "next/image"
 
-import { Button, buttonVariants } from "../ui/button";
-
-export default function Hero() {
-
+export default function Header({
+    button = {
+        text: "Get Started",
+        url: "/signup",
+    },
+    trustText = "Trusted by 500+ Creators Worldwide",
+    imageSrc = "/img/hero_bg.png",
+    imageAlt = "Fiuzar hero",
+}) {
     return (
-        <section className="relative overflow-hidden py-20 min-h-screen">
-            <div className="absolute inset-x-0 top-0 flex h-full w-full items-center justify-center opacity-100">
-                <Image
-                    alt="background"
-                    src="/img/download.jpeg"
-                    style={{ filter: "brightness(30%)" }}
-                    className="opacity-90 w-full h-screen -mt-20 object-cover"
-                    width={400}
-                    height={400}
-                />
-            </div>
-            <div className="relative z-10 container mx-auto">
-                <div className="mx-auto flex max-w-5xl flex-col items-center mt-16">
-                    <div className="flex flex-col items-center gap-6 text-center">
-                        <div className="rounded-xl bg-white p-4 shadow-sm backdrop-blur-sm">
-                            <Image
-                                src="/img/logo-2.png"
-                                alt="logo"
-                                className="w-24"
-                                width={400}
-                                height={400}
-                            />
+        <section className="overflow-hidden py-10">
+            <div className="container mx-auto">
+                <div className="flex flex-col gap-5">
+                    <div className="relative flex flex-col gap-5">
+                        <div
+                            style={{
+                                transform: "translate(-50%, -50%)",
+                            }}
+                            className="absolute top-1/2 left-1/2 -z-10 mx-auto size-[800px] rounded-full border p-16 [mask-image:linear-gradient(to_top,transparent,transparent,white,white,white,transparent,transparent)] md:size-[1300px] md:p-32"
+                        >
+                            <div className="size-full rounded-full border p-16 md:p-32">
+                                <div className="size-full rounded-full border"></div>
+                            </div>
                         </div>
-                        <div>
-                            <h1 className="mb-6 text-2xl font-bold tracking-tight text-pretty lg:text-5xl">
-                                Repurpose Your Content With{" "}
-                                <span className="text-primary">Fiuzar</span>
-                            </h1>
-                            <p className="mx-auto max-w-3xl text-white lg:text-xl">
-                                Transform your existing content into platform-specific formats with our AI-powered tool.
-                            </p>
-                        </div>
-                        <div className="mt-6 flex justify-center gap-3">
-                            <Link href={`/signup`}>
-                                <Button className="shadow-sm transition-shadow hover:shadow cursor-pointer py-7">
-                                    Get Started
-                                </Button>
-                            </Link>
-
-                            <Link href={`/blog`}>
-                                <Button variant="outline" className="group py-7">
-                                    Learn more
-                                </Button>
-                            </Link>
-
+                        <span className="mx-auto flex size-16 items-center justify-center rounded-full border md:size-20">
+                            <Image className="w-10 h-10 object-center" src="/img/logo-2.png" width={600} height={600} alt="fiuzar logo" />
+                        </span>
+                        <h1 className="mx-auto max-w-screen-lg text-center text-4xl font-bold text-balance md:text-6xl">
+                            Repurpose Your Content With{" "}
+                            <span className="text-primary">Fiuzar</span>
+                        </h1>
+                        <p className="mx-auto max-w-screen-md text-center text-muted-foreground md:text-lg">
+                            Transform your existing content into platform-specific formats with our AI-powered tool.
+                        </p>
+                        <div className="flex flex-col items-center justify-center gap-3 pt-3 pb-12">
+                            <Button size="lg" className={`py-7`} asChild>
+                                <Link href={button.url}>
+                                    {button.text}
+                                </Link>
+                            </Button>
+                            {trustText && (
+                                <div className="text-xs text-muted-foreground">{trustText}</div>
+                            )}
                         </div>
                     </div>
+                    <Image
+                        src={imageSrc}
+                        alt={imageAlt}
+                        width={400}
+                        height={400}
+                        className="mx-auto h-full w-full max-w-screen-lg rounded-2xl object-cover lg:hidden"
+                    />
                 </div>
             </div>
         </section>
     );
-
-}
+};
