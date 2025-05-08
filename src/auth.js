@@ -5,7 +5,7 @@ import { query } from "./lib/db";
 import bcrypt from "bcryptjs"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-    secret: process.env.AUTH_SECRET, // Explicitly set the secret
+    secret: process.env.AUTH_SECRET,
     providers: [
         Google,
         Credentials({

@@ -10,9 +10,9 @@ export default async function SignupPage() {
         return <SignupForm />
     }
 
-    // if (session.user.email == "mail@fiuzar.com") {
-    //     redirect("/admin")
-    // }
+    if (session.user.id == "Admin_001") {
+        redirect("/admin")
+    }
     else {
         redirect("/app")
     }

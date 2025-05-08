@@ -5,11 +5,16 @@ import { query } from "@/lib/db"
 import nodemailer from "nodemailer"
 import bcrypt from "bcryptjs"
 
+export async function googleSignIn() {
+    await signIn("google")
+}
+
 export async function credentialsAction(formData) {
     try {
-        await signIn("credentials", formData)
-    }
-    catch (err) {
+        const data = Object.fromEntries(formData.entries()); // Convert formData to an object
+        await signIn("credentials", { ...data });
+    } catch (err) {
+        console.error("Error during credentials login:", err);
     }
 }
 
