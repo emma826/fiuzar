@@ -4,66 +4,84 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { AlertCircle } from "lucide-react"
+import {
+    Alert,
+    AlertDescription,
+    AlertTitle,
+} from "@/components/ui/alert"
 
 import Link from "next/link"
 import { useSearchParams, useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 import { ContinueSignup } from "../server-actions/authentication"
 
 export function VerifyUserEmail({ className, ...props }) {
+    const { email } = props;
 
     const searchParams = useSearchParams()
     const router = useRouter()
+    const [isSuccess, setSuccess] = useState(false)
     const [message, setMessage] = useState("")
+    const [name, setName] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirm_password, setConfirm_password] = useState("")
 
-    const email = searchParams.get("email")
-    const pin = searchParams.get("pin")
+    async function submitUserData() {
+        try {
+            const { success, message } = await ContinueSignup(name.trim(), email.trim(), password, confirm_password)
 
-    if (!email || !pin) {
-        return router.push("/signup")
+            displayAlert(success, message)
+
+            if (success) {
+                router.push(`/login`)
+            }
+        }
+        catch (error) {
+            setMessage(error)
+        }
     }
 
-    useEffect(() => {
-        alert(message)
-    }, [message])
+    function displayAlert(success, message) {
+        if (!success) {
+            setSuccess(false)
+            setMessage(message)
+        }
+        else {
+            setSuccess(true)
+            setMessage(message)
+        }
+
+        setTimeout(() => {
+            setMessage("")
+        }, 3000);
+    }
 
     return (
         <>
 
-            <form action={async (formData) => {
-
-                const name = formData.get("name")
-                const emailaddress = formData.get("email")
-                const password = formData.get("password")
-                const confirm_password = formData.get("confirm_password")
-
-                try {
-                    const {success, message} = await ContinueSignup(name, email, password, confirm_password, pin)
-
-                    if(!success) {
-                        return setMessage(message)
-                    }
-
-                    setMessage(message)
-                    router.push("/login")
-                }
-                catch (error) {
-                    setMessage(error)
-                }
-
-            }} className={cn("flex flex-col gap-6", className)} {...props} method="POST">
+            <div className={cn("flex flex-col gap-6", className)} {...props}>
                 <div className="flex flex-col items-center gap-2 text-center">
                     <h1 className="text-2xl font-bold">Continue Your Registration</h1>
                     <p className="text-balance text-sm py-2 text-muted-foreground">
                         Fill in the remaining fields below to register your account
                     </p>
                 </div>
-                <div className="grid gap-6 mb-3">
+                <div className="grid gap-6">
+
+                    {message && (
+                        <Alert variant={isSuccess ? "success" : "destructive"}>
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertTitle>{isSuccess ? "Success" : "Error"}</AlertTitle>
+                            <AlertDescription>{message}</AlertDescription>
+                        </Alert>
+                    )}
+
 
                     <div className="grid gap-2">
                         <Label htmlFor="name">Full Name</Label>
-                        <Input id="name" type="text" name="name" placeholder="John Emmanuel" />
+                        <Input id="name" type="text" value={name} placeholder="Name" onChange={(e) => setName(e.target.value)} />
                     </div>
 
                     <div className="grid gap-2">
@@ -72,19 +90,20 @@ export function VerifyUserEmail({ className, ...props }) {
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="password">Password</Label>
-                        <Input id="password" type="password" name="password" placeholder="********" />
+                        <Input id="password" type="password" value={password} placeholder="********" onChange={(e) => { setPassword(e.target.value) }} />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="confirm_password">Confirm Password</Label>
-                        <Input id="confirm_password" type="password" name="confirm_password" placeholder="********" />
+                        <Input id="confirm_password" type="password" value={confirm_password} placeholder="********" onChange={(e) => { setConfirm_password(e.target.value) }} />
                     </div>
-                    <Button type="submit" className="w-full">
+                    <Button onClick={submitUserData} className="w-full">
                         Submit
                     </Button>
-                </div>
-            </form>
 
-            <div className="grid gap-6 mb-3">
+                </div>
+            </div>
+
+            <div className="grid gap-6 mt-5">
 
                 <div className="text-center text-sm">
                     Back to{" "}

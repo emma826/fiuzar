@@ -14,6 +14,13 @@ export async function middleware(req) {
             const loginUrl = new URL("/login", req.url);
             return NextResponse.redirect(loginUrl);
         }
+
+        // Check if the user is an admin for admin paths
+        if (pathname.startsWith("/admin") && !token.id.startsWith("Admin_")) {
+            // Redirect to login if the user is not an admin
+            const loginUrl = new URL("/login", req.url);
+            return NextResponse.redirect(loginUrl);
+        }
     }
 
     return NextResponse.next();
