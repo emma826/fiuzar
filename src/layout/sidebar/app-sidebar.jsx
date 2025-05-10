@@ -28,7 +28,7 @@ export function NavSidebar({ menu }) {
             <div className="bg-muted h-full max-w-96 py-2 flex justify-between">
                 <div className="border-r relative">
                     <div className="px-2 w-12 grid gap-3">
-                        <Image className="w-full w-12 rounded-full border bg-green-500" src={`/img/logo-2.png`} alt="fiuzar logo" width={400} height={400} />
+                        <Image className="w-12 rounded-full border bg-green-500" src={`/img/logo-2.png`} alt="fiuzar logo" width={400} height={400} />
 
                         {menu.map((menuItem, index) => (
                             <Link href={menuItem.url} key={index} className="w-full text-center">
