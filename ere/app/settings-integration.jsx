@@ -2,9 +2,9 @@
 
 import { useContext, useEffect, useState } from "react"
 import { ProfileContext } from "@/app/app/integration/page"
-import { Input } from "../ui/input"
-import { Label } from "../ui/label"
-import { Button } from "../ui/button"
+import { Input } from "../../src/components/ui/input"
+import { Label } from "../../src/components/ui/label"
+import { Button } from "../../src/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import IntegrationContent from "./integration-content"

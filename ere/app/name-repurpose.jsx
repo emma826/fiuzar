@@ -2,7 +2,7 @@
 
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
-import { Button } from "../ui/button"
+import { Button } from "../../src/components/ui/button"
 import { SendHorizontal, SearchIcon } from "lucide-react"
 import { Suspense, useContext } from "react"
 import { SkeletonPageSingle } from "@/layout/skeleton-page"

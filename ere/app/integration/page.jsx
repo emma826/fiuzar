@@ -1,7 +1,7 @@
 "use client";
 
 import AppNavbar from "@/layout/app-navbar";
-import { UserProfile, SettingsTab } from "@/components/app/settings-integration";
+import { UserProfile, SettingsTab } from "../settings-integration";
 
 import { createContext, useState, useEffect } from "react";
 
