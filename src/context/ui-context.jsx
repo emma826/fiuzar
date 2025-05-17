@@ -24,6 +24,7 @@ export function UIProvider({ children }) {
 
     useEffect(() => {
         setIsMobile(windowWidth <= 750);
+        setIsOpen(windowWidth > 750)
     }, [windowWidth]);
 
     return (

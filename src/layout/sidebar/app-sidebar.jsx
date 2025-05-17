@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { signOut } from "next-auth/react";
+import AppProjectHistory from "../app-project-history";
 
 export function SideBar({ children }) {
     const { isMobile } = useUIContext();
@@ -39,7 +40,7 @@ export function NavSidebar({ menu }) {
                     </div>
 
                     <div className={`absolute px-2 ${isMobile ? 'bottom-15' : 'bottom-1'}`}>
-                        <Button onClick={signOut} className="text-center bg-white">
+                        <Button onClick={() => signOut({ callbackUrl: '/login' })} className="text-center bg-white">
                             <LogOut className="px-auto w-full block text-sm text-red-500" />
                         </Button>
                     </div>
@@ -55,7 +56,8 @@ export function NavSidebar({ menu }) {
                     <div className="pb-3 border-b">
                         <Input className={`py-2`} placeholder="Search projects" />
                     </div>
-                    emma
+
+                    <AppProjectHistory />                    
                 </div>
             </div>
         </aside>

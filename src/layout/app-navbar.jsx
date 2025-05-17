@@ -11,10 +11,9 @@ export default function AppNavbar() {
         <>
             <div className="sticky top-0 flex justify-between shrink-0 items-center gap-2 bg-background px-2 py-1 border-b">
                 <Menu onClick={() => setIsOpen(!isOpen)} className="cursor-pointer w-10 h-10 rounded-md hover:bg-gray-100 px-2 py-2" />
-                <div className="flex-auto flex justify-between px-1">
-                    <div className="flex-auto">
-                        {`open ${isOpen} mobile ${isMobile}`}
-                    </div>
+                <div className="flex-auto flex justify-end px-1">
+                    {/* <div className="flex-auto">
+                    </div> */}
                     <div className="cursor-pointer hover:bg-gray-200 rounded-lg">
                         <User className="cursor-pointer w-10 h-10 rounded-md hover:bg-gray-100 px-2 py-2" />
                     </div>
