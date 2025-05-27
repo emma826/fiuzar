@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-
 import { useEffect, useState } from "react"
 import Link from "next/link"
 
@@ -12,7 +11,6 @@ export default function AppProjectHistory() {
 		setLoading(true)
 
 		try {
-
 			const response = await fetch(`/api/app/create-project?limit=10&index=${index}`, {
 				method: 'GET',
 				headers: {
@@ -23,11 +21,13 @@ export default function AppProjectHistory() {
 			if (response.ok) {
 				const data = await response.json()
 
-				const projects = data.recent_projects.map((project) => ({
-					id: project.id,
-					project_name: project.project_name,
-					date: new Date(project.created_at).toLocaleTimeString(),
-				}))
+				const projects = Array.isArray(data.recent_projects)
+					? data.recent_projects.map((project) => ({
+						id: project.id,
+						project_name: project.project_name,
+						date: new Date(project.created_at).toLocaleTimeString(),
+					}))
+					: []
 				setHistory((prevHistory) => [...prevHistory, ...projects])
 				setNextIndex(data.next_index)
 			}
@@ -40,9 +40,11 @@ export default function AppProjectHistory() {
 		} finally {
 			setLoading(false)
 		}
-
 	}
-	fetchProjectHistory()
+
+	useEffect(() => {
+		fetchProjectHistory()
+	}, [])
 
 	return (
 		<div className="py-3">
