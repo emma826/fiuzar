@@ -4,55 +4,57 @@ import * as cheerio from "cheerio";
 export async function POST(request) {
     const { url } = await request.json();
 
-    if (!url || typeof url !== "string") {
-        return NextResponse.json({ error: "Invalid URL format" }, { status: 400 });
-    }
+    return NextResponse.json({ error: "submitted successfully"})
 
-    try {
-        new URL(url);
-    } catch (error) {
-        return NextResponse.json({ error: "Invalid URL format. Add https:// if not added" }, { status: 400 });
-    }
+    // if (!url || typeof url !== "string") {
+    //     return NextResponse.json({ error: "Invalid URL format" }, { status: 400 });
+    // }
 
-    try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 30000); 
+    // try {
+    //     new URL(url);
+    // } catch (error) {
+    //     return NextResponse.json({ error: "Invalid URL format. Add https:// if not added" }, { status: 400 });
+    // }
 
-        const response = await fetch(url, { signal: controller.signal });
-        clearTimeout(timeout);
+    // try {
+    //     const controller = new AbortController();
+    //     const timeout = setTimeout(() => controller.abort(), 30000); 
 
-        if (!response.ok) {
-            return NextResponse.json({ error: "Failed to fetch the URL" }, { status: response.status });
-        }
-        const html = await response.text();
+    //     const response = await fetch(url, { signal: controller.signal });
+    //     clearTimeout(timeout);
 
-        const $ = cheerio.load(html);
+    //     if (!response.ok) {
+    //         return NextResponse.json({ error: "Failed to fetch the URL" }, { status: response.status });
+    //     }
+    //     const html = await response.text();
 
-        const h1 = $("h1").first().text().trim();
-        let article = $("article").clone();
-        if (!article.length) {
-            article = $("main").clone();
-        }
+    //     const $ = cheerio.load(html);
 
-        article.find("img, video, iframe, picture, script, style").remove();
+    //     const h1 = $("h1").first().text().trim();
+    //     let article = $("article").clone();
+    //     if (!article.length) {
+    //         article = $("main").clone();
+    //     }
 
-        article.find("*").each((_, el) => {
-            $(el).removeAttr("style").removeAttr("class");
-        });
+    //     article.find("img, video, iframe, picture, script, style").remove();
 
-        const articleText = article.text().trim();
+    //     article.find("*").each((_, el) => {
+    //         $(el).removeAttr("style").removeAttr("class");
+    //     });
 
-        if (!h1 && !articleText) {
-            return NextResponse.json({ error: "Could not extract blog post content" }, { status: 404 });
-        }
+    //     const articleText = article.text().trim();
 
-        console.log("h1 text:", h1);
+    //     if (!h1 && !articleText) {
+    //         return NextResponse.json({ error: "Could not extract blog post content" }, { status: 404 });
+    //     }
 
-        return NextResponse.json({ h1: h1 || null, article: articleText || null });
-    } catch (error) {
-        if (error.name === "AbortError") {
-            return NextResponse.json({ error: "Request timed out" }, { status: 408 });
-        }
-        return NextResponse.json({ error: "An error occurred during scraping" }, { status: 500 });
-    }
+
+
+    //     return NextResponse.json({ h1: h1 || null, article: articleText || null });
+    // } catch (error) {
+    //     if (error.name === "AbortError") {
+    //         return NextResponse.json({ error: "Request timed out" }, { status: 408 });
+    //     }
+    //     return NextResponse.json({ error: "An error occurred during scraping" }, { status: 500 });
+    // }
 }
